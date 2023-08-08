@@ -1,7 +1,5 @@
-import sys
 import boto3
 import pandas as pd
-from urllib.parse import urlparse
 
 bucket_name = '<bucket>'
 input_file = '<input_path>'
@@ -9,6 +7,13 @@ output_file = '<output_path>'
 
 # Create an S3 client
 s3 = boto3.client('s3')
+
+def check_folder_available(folder_key):
+    try:
+        response = s3.list_objects_v2(Bucket=bucket_name, Prefix=folder_key, Delimiter='/')
+        return 'Yes' if 'Contents' in response or 'CommonPrefixes' in response else 'No'
+    except Exception as e:
+        return 'No'
 
 def check_file_available(object_key):
     try:
@@ -26,13 +31,13 @@ results = []
 
 for line in lines:
     object_key = line.strip()
+
     if object_key.endswith('/'):
-        object_key = object_key.rstrip('/')  # Remove trailing '/'
-        result = check_file_available(object_key)
-        results.append((object_key + '/', result))
+        result = check_folder_available(object_key)
     else:
         result = check_file_available(object_key)
-        results.append((object_key, result))
+
+    results.append((object_key, result))
 
 # Create a Pandas DataFrame
 pandas_df = pd.DataFrame(results, columns=['file_name', 'file_available'])
