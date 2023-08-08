@@ -1,3 +1,5 @@
+//Check S3 files available check //
+
 import boto3
 import pandas as pd
 
@@ -45,3 +47,32 @@ pandas_df = pd.DataFrame(results, columns=['file_name', 'file_available'])
 # Save DataFrame to CSV
 pandas_df.to_csv(output_file, index=False)
 print('Check the output file')
+
+
+
+//Files in subfolders//
+import boto3
+# connect to s3 - assuming your creds are all set up and you have boto3 installed
+s3 = boto3.client('s3')
+
+# get the bucket
+s3_bucket = '<bucket>'
+s3_prefix = '<input_path>'
+
+def get_file_count(s3_prefix):
+    response =  s3.list_objects_v2(Bucket=s3_bucket, Prefix=s3_prefix)
+    file_count = 0
+    for obj in response.get("Contents", []):
+        if not obj["Key"].endswith("/"):
+            file_count +=1
+    print(s3_prefix, '|', file_count)
+
+def list_first_level_subfolders(s3_prefix):
+    response = s3.list_objects_v2(Bucket=s3_bucket, Prefix=s3_prefix, Delimiter='/')
+    subfolders = [common_prefix["Prefix"] for common_prefix in response.get("CommonPrefixes", [])]
+    return subfolders
+
+first_level_subfolders = list_first_level_subfolders(s3_prefix)
+
+for subfolders in first_level_subfolders:
+    get_file_count(subfolders)
