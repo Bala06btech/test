@@ -1,27 +1,42 @@
 import sys
 import boto3
 import pandas as pd
+from urllib.parse import urlparse
+
 bucket_name = '<bucket>'
 input_file = '<input_path>'
 output_file = '<output_path>'
 
-lines = spark.read.text(input_file)
+# Create an S3 client
+s3 = boto3.client('s3')
 
 def check_file_available(object_key):
-    s3 = boto3.client('s3')
     try:
         s3.head_object(Bucket=bucket_name, Key=object_key)
         return 'Yes'
     except Exception as e:
         return 'No'
 
-from pyspark.sql.functions import udf
-from pyspark.sql.types import StringType
+# Read input file into a list
+with open(input_file, 'r') as f:
+    lines = f.readlines()
 
-check_file_udf = udf(check_file_available, StringType())
-file_available_df = lines.withColumn('file_available', check_file_udf(lines['value']))
+# Check availability for each object
+results = []
 
-pandas_df = file_available_df.toPandas()
-pandas_df.rename(columns={'value' : 'file_name'}, inplace=True)
+for line in lines:
+    object_key = line.strip()
+    if object_key.endswith('/'):
+        object_key = object_key.rstrip('/')  # Remove trailing '/'
+        result = check_file_available(object_key)
+        results.append((object_key + '/', result))
+    else:
+        result = check_file_available(object_key)
+        results.append((object_key, result))
+
+# Create a Pandas DataFrame
+pandas_df = pd.DataFrame(results, columns=['file_name', 'file_available'])
+
+# Save DataFrame to CSV
 pandas_df.to_csv(output_file, index=False)
 print('Check the output file')
