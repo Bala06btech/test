@@ -6,12 +6,8 @@ bucket_name = '<bucket>'
 input_file = '<input_path>'
 output_file = '<output_path>'
 
-# Set the filtering time in your local timezone (EST)
-filter_time_local = datetime.strptime('2023-07-30 01:30:00', '%Y-%m-%d %H:%M:%S')
-# Convert filtering time to UTC timezone
-filter_time_utc = filter_time_local.replace(tzinfo=timezone.utc)
-# Convert filtering time to EST timezone
-filter_time_est = filter_time_utc.astimezone(timezone(timedelta(hours=-5)))
+# Set the filtering time in Eastern Standard Time (EST)
+filter_time_local = datetime.strptime('2023-07-30 01:30:00', '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone(timedelta(hours=-5)))
 
 # Create an S3 client
 s3 = boto3.client('s3')
@@ -19,14 +15,14 @@ s3 = boto3.client('s3')
 def check_folder_available(folder_key):
     try:
         response = s3.list_objects_v2(Bucket=bucket_name, Prefix=folder_key, Delimiter='/')
-        return 'Yes' if any(obj['LastModified'].replace(tzinfo=timezone.utc) >= filter_time_est for obj in response.get('Contents', [])) else 'No'
+        return 'Yes' if any(obj['LastModified'] >= filter_time_local for obj in response.get('Contents', [])) else 'No'
     except Exception as e:
         return 'No'
 
 def check_file_available(object_key):
     try:
         obj = s3.head_object(Bucket=bucket_name, Key=object_key)
-        return 'Yes' if obj['LastModified'].replace(tzinfo=timezone.utc) >= filter_time_est else 'No'
+        return 'Yes' if obj['LastModified'] >= filter_time_local else 'No'
     except Exception as e:
         return 'No'
 
@@ -53,6 +49,7 @@ pandas_df = pd.DataFrame(results, columns=['file_name', 'file_available'])
 # Save DataFrame to CSV
 pandas_df.to_csv(output_file, index=False)
 print('Check the output file')
+
 
 
 
