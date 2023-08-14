@@ -1,16 +1,21 @@
 import boto3
 import pandas as pd
-from datetime import datetime, timezone, timedelta
+from datetime import datetime
+import pytz
 
 bucket_name = '<bucket>'
 input_file = '<input_path>'
 output_file = '<output_path>'
 
-# Set the filtering time in Eastern Standard Time (EST)
-filter_time_local = datetime.strptime('2023-07-30 01:30:00', '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone(timedelta(hours=-5)))
+# Set the filtering time in your local timezone
+filter_time_local = datetime.strptime('2023-07-30 01:30:00', '%Y-%m-%d %H:%M:%S')
+# Get the timezone for Eastern Standard Time (EST)
+est_timezone = pytz.timezone('America/New_York')
+# Convert the filtering time to EST timezone
+filter_time_est = est_timezone.localize(filter_time_local)
 
-# Convert filtering time to UTC timezone
-filter_time_utc = filter_time_local.astimezone(timezone.utc)
+# Convert the filtering time to UTC timezone
+filter_time_utc = filter_time_est.astimezone(pytz.UTC)
 
 # Create an S3 client
 s3 = boto3.client('s3')
