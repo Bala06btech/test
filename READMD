@@ -3,6 +3,7 @@ import pandas as pd
 from datetime import datetime
 
 bucket_name = '<bucket>'
+input_file = '<input_path>'
 output_file = '<output_path>'
 
 # Set the filtering time
@@ -25,14 +26,16 @@ def check_file_available(object_key):
     except Exception as e:
         return 'No'
 
-# List objects in the bucket
-objects = s3.list_objects_v2(Bucket=bucket_name, Prefix='<input_path>')
-object_keys = [obj['Key'] for obj in objects.get('Contents', [])]
+# Read input file from S3 into a list of lines
+response = s3.get_object(Bucket=bucket_name, Key=input_file)
+lines = response['Body'].read().decode('utf-8').splitlines()
 
 # Check availability for each object
 results = []
 
-for object_key in object_keys:
+for line in lines:
+    object_key = line.strip()
+
     if object_key.endswith('/'):
         result = check_folder_available(object_key)
     else:
@@ -46,7 +49,6 @@ pandas_df = pd.DataFrame(results, columns=['file_name', 'file_available'])
 # Save DataFrame to CSV
 pandas_df.to_csv(output_file, index=False)
 print('Check the output file')
-
 
 
 
