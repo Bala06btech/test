@@ -7,7 +7,7 @@ s3_client = boto3.client('s3')
 
 # Regular expression patterns to extract metadata
 table_pattern = re.compile(r"Library (\w+) assigned with PARQUET engine\. Found (\d+) table\(s\) in (\d+\.\d+) seconds\.")
-dataframe_pattern = re.compile(r"DataFrame ([\w\.]+) \((\d+) rows, (\d+) columns\) saved in (\d+\.\d+) seconds to: '([\w\/\.]+)'")
+dataframe_pattern = r"DataFrame (\w+)\s+\((\d+) rows, (\d+) columns\) saved in [\d.]+ seconds to:\s+'(.+)'"
 
 # Input S3 URI of the log file
 s3_uri = 's3://your-bucket-name/path/to/your/log-file.log'
