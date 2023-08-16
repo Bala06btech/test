@@ -6,7 +6,7 @@ from urllib.parse import urlparse
 s3_client = boto3.client('s3')
 
 # Regular expression patterns to extract metadata
-table_pattern = re.compile(r"Found (\d+) table\(s\) in (\d+\.\d+) seconds\.")
+table_pattern = re.compile(r"Library (\w+) assigned with PARQUET engine\. Found (\d+) table\(s\) in (\d+\.\d+) seconds\.")
 dataframe_pattern = re.compile(r"DataFrame ([\w\.]+) \((\d+) rows, (\d+) columns\) saved in (\d+\.\d+) seconds to: '([\w\/\.]+)'")
 
 # Input S3 URI of the log file
@@ -21,10 +21,10 @@ s3_key = parsed_uri.path.lstrip('/')
 response = s3_client.get_object(Bucket=s3_bucket, Key=s3_key)
 log_content = response['Body'].read().decode('utf-8')
 
-# Extract table count and processing time
+# Extract table count and library name
 table_matches = table_pattern.findall(log_content)
-for count, _ in table_matches:
-    print(f"Found {count} table(s)")
+for library_name, count, _ in table_matches:
+    print(f"{library_name} - {count}")
 
 # Extract DataFrame information
 dataframe_matches = dataframe_pattern.findall(log_content)
