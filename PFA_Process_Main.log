@@ -1,0 +1,809 @@
+:: loading settings :: url = jar:file:/opt/WWD/OpenAnalyticsFoundation/spark-3.2.4-bin-hadoop3.2/jars/ivy-2.5.1.jar!/org/apache/ivy/core/settings/ivysettings.xml
+ \ ^ /    ___ ___  ____ ____ ____ _  _ ____ ___    ____ _  _ _  _ ___ _ _  _ ____
+–< S >–  [__  |__] |__/ |  | |    |_/  |___  |     |__/ |  | |\ |  |  | |\/| |___ 
+ / v \   ___] |    |  \ |__| |___ | \_ |___  |     |  \ |__| | \|  |  | |  | |___ 
+v3.2.3                                                            By WiseWithData
+NOTE: Library work assigned with PARQUET engine. Found 0 table(s) in 1.06 seconds.
+NOTE: Library sasuser assigned with PARQUET engine. Found 0 table(s) in 0.85 seconds.
+NOTE: SPROCKET Runtime initialized
+3
+NOTE: Library cifsrc assigned with PARQUET engine. Found 0 table(s) in 0.01 seconds.
+NOTE: Library trxn assigned with PARQUET engine. Found 5 table(s) in 1.15 seconds.
+NOTE: Library _map assigned with PARQUET engine. Found 1 table(s) in 0.15 seconds.
+NOTE: Library cdw assigned with PARQUET engine. Found 1 table(s) in 0.21 seconds.
+7
+NOTE: Library g202212 assigned with PARQUET engine. Found 1 table(s) in 0.16 seconds.
+NOTE: Library g202301 assigned with PARQUET engine. Found 1 table(s) in 0.14 seconds.
+NOTE: Library g202302 assigned with PARQUET engine. Found 1 table(s) in 0.15 seconds.
+NOTE: Library g202303 assigned with PARQUET engine. Found 1 table(s) in 0.11 seconds.
+NOTE: Library g202304 assigned with PARQUET engine. Found 1 table(s) in 0.10 seconds.
+NOTE: Library g202305 assigned with PARQUET engine. Found 1 table(s) in 0.09 seconds.
+NOTE: Library g202306 assigned with PARQUET engine. Found 1 table(s) in 0.13 seconds.
+g202212,g202301,g202302,g202303,g202304,g202305,g202306
+NOTE: Library gall assigned with CONCAT engine. Found 7 table(s) in 0.00 seconds.
+NOTE: Library tmp assigned with PARQUET engine. Found 0 table(s) in 0.20 seconds.
+NOTE: Library inplan assigned with PARQUET engine. Found 11 table(s) in 1.00 seconds.
+NOTE: Library cif assigned with PARQUET engine. Found 1 table(s) in 0.09 seconds.
+NOTE: Library cpseg assigned with PARQUET engine. Found 15 table(s) in 1.59 seconds.
+NOTE: Library mbrseg assigned with PARQUET engine. Found 7 table(s) in 0.50 seconds.
+NOTE: Library popseg assigned with PARQUET engine. Found 3 table(s) in 0.29 seconds.
+NOTE: Library poptrxn assigned with PARQUET engine. Found 7 table(s) in 0.49 seconds.
+NOTE: Library inc assigned with PARQUET engine. Found 21 table(s) in 1.45 seconds.
+NOTE: Library _cnt assigned with PARQUET engine. Found 10 table(s) in 0.66 seconds.
+NOTE: Library excl assigned with PARQUET engine. Found 4 table(s) in 0.30 seconds.
+NOTE: Library qa assigned with PARQUET engine. Found 16 table(s) in 1.03 seconds.
+NOTE: Library tmp assigned with PARQUET engine. Found 0 table(s) in 0.02 seconds.
+CIF_GRS already exist
+NOTE: DataFrame cpseg.clientdt (11 rows, 3 columns) saved in 3.21 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Client_Plan_Seg/clientdt.parquet'
+NOTE: DataFrame cpseg.clientplandt (104 rows, 4 columns) saved in 1.52 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Client_Plan_Seg/clientplandt.parquet'
+NOTE: DataFrame cpseg.client_bal_202212 (11 rows, 3 columns) saved in 0.59 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Client_Plan_Seg/client_bal_202212.parquet'
+NOTE: DataFrame cpseg.clientplan_bal_202212 (104 rows, 4 columns) saved in 0.53 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Client_Plan_Seg/clientplan_bal_202212.parquet'
+NOTE: DataFrame cpseg.client_contrit_2022 (9 rows, 8 columns) saved in 0.59 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Client_Plan_Seg/client_contrit_2022.parquet'
+NOTE: DataFrame cpseg.clientplan_contrit_2022 (13 rows, 9 columns) saved in 0.50 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Client_Plan_Seg/clientplan_contrit_2022.parquet'
+NOTE: DataFrame cpseg.new_client_from_2022 (0 rows, 1 columns) saved in 0.51 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Client_Plan_Seg/new_client_from_2022.parquet'
+NOTE: DataFrame cpseg.new_clientplan_from_2022 (0 rows, 2 columns) saved in 0.56 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Client_Plan_Seg/new_clientplan_from_2022.parquet'
+NOTE: DataFrame cpseg.client_contrit_202307 (5 rows, 8 columns) saved in 0.33 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Client_Plan_Seg/client_contrit_202307.parquet'
+NOTE: DataFrame cpseg.clientplan_contrit_202307 (6 rows, 9 columns) saved in 0.40 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Client_Plan_Seg/clientplan_contrit_202307.parquet'
+NOTE: DataFrame cpseg.client_contrit_mindt_202307 (5 rows, 3 columns) saved in 0.27 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Client_Plan_Seg/client_contrit_mindt_202307.parquet'
+NOTE: DataFrame cpseg.clientplan_contrit_mindt_202307 (6 rows, 4 columns) saved in 0.31 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Client_Plan_Seg/clientplan_contrit_mindt_202307.parquet'
+NOTE: DataFrame cpseg.new_client_from_2022_trxn (0 rows, 3 columns) saved in 0.32 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Client_Plan_Seg/new_client_from_2022_trxn.parquet'
+NOTE: DataFrame cpseg.new_clientplan_from_2022_trxn (0 rows, 4 columns) saved in 0.44 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Client_Plan_Seg/new_clientplan_from_2022_trxn.parquet'
+NOTE: DataFrame cpseg.client_plan_seg (104 rows, 9 columns) saved in 0.48 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Client_Plan_Seg/client_plan_seg.parquet'
+NOTE: DataFrame inplan.client_plan_seg (104 rows, 9 columns) saved in 0.36 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/inplan/client_plan_seg.parquet'
+NOTE: DataFrame mbrseg.grs_product_date (304 rows, 8 columns) saved in 2.52 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Member_Seg/grs_product_date.parquet'
+NOTE: DataFrame mbrseg.grs_partyid_date (1,595 rows, 10 columns) saved in 0.53 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Member_Seg/grs_partyid_date.parquet'
+NOTE: DataFrame mbrseg.grs_mbr_prod_dt (1,595 rows, 11 columns) saved in 0.66 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Member_Seg/grs_mbr_prod_dt.parquet'
+NOTE: DataFrame mbrseg.trans_itt (1,921 rows, 15 columns) saved in 0.69 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Member_Seg/trans_itt.parquet'
+NOTE: DataFrame mbrseg.grs_itt_same_parent (0 rows, 15 columns) saved in 0.35 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Member_Seg/grs_itt_same_parent.parquet'
+NOTE: DataFrame mbrseg.uniqueid_same_parent_mbrdt (0 rows, 4 columns) saved in 0.48 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Member_Seg/uniqueid_same_parent_mbrdt.parquet'
+NOTE: DataFrame mbrseg.grs_mbr_prod_dt (1,595 rows, 15 columns) saved in 0.27 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Member_Seg/grs_mbr_prod_dt.parquet'
+NOTE: DataFrame mbrseg.grs_mbr_prod_dt_updated (1,595 rows, 15 columns) saved in 0.34 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Member_Seg/grs_mbr_prod_dt_updated.parquet'
+NOTE: DataFrame inplan.grs_mbr_prod_dt_updated (1,595 rows, 15 columns) saved in 0.51 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/inplan/grs_mbr_prod_dt_updated.parquet'
+NOTE: DataFrame popseg.grs_pop_mbr_prod_202307 (17 rows, 17 columns) saved in 1.48 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Population_Seg/grs_pop_mbr_prod_202307.parquet'
+NOTE: DataFrame popseg.grs_pop_mbr_prod_dt_202307 (119 rows, 18 columns) saved in 0.34 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Population_Seg/grs_pop_mbr_prod_dt_202307.parquet'
+NOTE: DataFrame popseg.grs_pop_mbr_prod_dt_seg_202307 (119 rows, 19 columns) saved in 0.21 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Population_Seg/grs_pop_mbr_prod_dt_seg_202307.parquet'
+NOTE: DataFrame inplan.grs_pop_mbr_prod_dt_seg_202307 (119 rows, 19 columns) saved in 0.15 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/inplan/grs_pop_mbr_prod_dt_seg_202307.parquet'
+NOTE: DataFrame poptrxn.client_tr_trxndt_seg_2023 (6 rows, 7 columns) saved in 0.64 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Population_Trxn/client_tr_trxndt_seg_2023.parquet'
+NOTE: DataFrame poptrxn.existing_seg_tr_trxndt_big_amt (0 rows, 4 columns) saved in 0.26 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Population_Trxn/existing_seg_tr_trxndt_big_amt.parquet'
+NOTE: DataFrame poptrxn.grs_trans_contrit_bigamt (6 rows, 30 columns) saved in 0.45 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Population_Trxn/grs_trans_contrit_bigamt.parquet'
+NOTE: DataFrame poptrxn.grs_trans_contrit_202307 (6 rows, 19 columns) saved in 0.31 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Population_Trxn/grs_trans_contrit_202307.parquet'
+NOTE: DataFrame poptrxn.grs_trans_contrit_202307 (6 rows, 19 columns) saved in 0.16 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Population_Trxn/grs_trans_contrit_202307.parquet'
+NOTE: DataFrame poptrxn.rollover_summary_2023 (0 rows, 6 columns) saved in 0.44 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Population_Trxn/rollover_summary_2023.parquet'
+NOTE: DataFrame poptrxn.grs_trans_rollover_202307 (0 rows, 5 columns) saved in 0.24 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Population_Trxn/grs_trans_rollover_202307.parquet'
+NOTE: DataFrame poptrxn.grs_trans_wd_202307 (13 rows, 15 columns) saved in 0.63 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Population_Trxn/grs_trans_wd_202307.parquet'
+NOTE: DataFrame poptrxn.grs_trans_wd_202307 (13 rows, 15 columns) saved in 0.19 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Population_Trxn/grs_trans_wd_202307.parquet'
+NOTE: DataFrame inplan.grs_trans_contrit_202307 (6 rows, 19 columns) saved in 0.17 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/inplan/grs_trans_contrit_202307.parquet'
+NOTE: DataFrame inplan.grs_trans_wd_202307 (13 rows, 15 columns) saved in 0.17 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/inplan/grs_trans_wd_202307.parquet'
+NOTE: DataFrame inplan.grs_trans_rollover_202307 (0 rows, 5 columns) saved in 0.23 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/inplan/grs_trans_rollover_202307.parquet'
+NOTE: DataFrame inplan.grs_trans_contrit_bigamt (6 rows, 30 columns) saved in 0.19 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/inplan/grs_trans_contrit_bigamt.parquet'
+NOTE: DataFrame inplan.grs_inplan_202307 (119 rows, 44 columns) saved in 0.55 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/inplan/grs_inplan_202307.parquet'
+NOTE: DataFrame inc.notrxn_2022_id (0 rows, 6 columns) saved in 0.48 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Inc_3_01_101/notrxn_2022_id.parquet'
+NOTE: RIPL Process ran in 0.32 seconds, generated 0 records
+NOTE: DataFrame inc.restarttrxn_2023_id (0 rows, 15 columns) saved in 0.15 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Inc_3_01_101/restarttrxn_2023_id.parquet'
+NOTE: DataFrame inc.notrxn_2022_restart_2023 (0 rows, 5 columns) saved in 0.17 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Inc_3_01_101/notrxn_2022_restart_2023.parquet'
+NOTE: RIPL Process ran in 0.09 seconds, generated 0 records
+NOTE: DataFrame inc.grs_contrit_vol_inc_2023_fixed (0 rows, 8 columns) saved in 0.18 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Inc_3_01_101/grs_contrit_vol_inc_2023_fixed.parquet'
+NOTE: RIPL Process ran in 0.17 seconds, generated 0 records
+NOTE: RIPL Process ran in 0.10 seconds, generated 0 records
+NOTE: DataFrame inc.grs_contrit_vol_inc_2023_dif (0 rows, 12 columns) saved in 0.13 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Inc_3_01_101/grs_contrit_vol_inc_2023_dif.parquet'
+NOTE: RIPL Process ran in 0.13 seconds, generated 0 records
+NOTE: DataFrame inc.grs_contrit_vol_2023_inc_ind (0 rows, 14 columns) saved in 0.14 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Inc_3_01_101/grs_contrit_vol_2023_inc_ind.parquet'
+NOTE: DataFrame inc.grs_contrit_vol_2023_inc3 (0 rows, 14 columns) saved in 0.24 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Inc_3_01_101/grs_contrit_vol_2023_inc3.parquet'
+NOTE: DataFrame inc.grs_contrit_vol_2023_inc3_amt (0 rows, 15 columns) saved in 0.29 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Inc_3_01_101/grs_contrit_vol_2023_inc3_amt.parquet'
+NOTE: RIPL Process ran in 0.19 seconds, generated 0 records
+NOTE: DataFrame inc.exising_seg_map (1 rows, 8 columns) saved in 0.26 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Inc_3_01_101/exising_seg_map.parquet'
+NOTE: DataFrame inc.existing_inc3 (0 rows, 13 columns) saved in 0.23 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Inc_3_01_101/existing_inc3.parquet'
+NOTE: DataFrame inc.existing_inc3 (0 rows, 13 columns) saved in 0.18 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Inc_3_01_101/existing_inc3.parquet'
+NOTE: DataFrame inc.contrit_vol_stats (0 rows, 9 columns) saved in 0.23 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Inc_3_01_101/contrit_vol_stats.parquet'
+NOTE: DataFrame inc.grs_contrit_2023_inc01_amt (0 rows, 9 columns) saved in 0.19 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Inc_3_01_101/grs_contrit_2023_inc01_amt.parquet'
+NOTE: RIPL Process ran in 0.20 seconds, generated 0 records
+NOTE: DataFrame inc.existing_inc01 (0 rows, 18 columns) saved in 0.25 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Inc_3_01_101/existing_inc01.parquet'
+NOTE: DataFrame inc.party_id_map (16 rows, 3 columns) saved in 0.23 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Inc_3_01_101/party_id_map.parquet'
+NOTE: DataFrame inc.lastcontritdt_partyid_product (14 rows, 4 columns) saved in 0.59 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Inc_3_01_101/lastcontritdt_partyid_product.parquet'
+NOTE: DataFrame inc.inc01_data_lastyeardt_2022 (0 rows, 21 columns) saved in 0.30 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Inc_3_01_101/inc01_data_lastyeardt_2022.parquet'
+NOTE: DataFrame inc.existing_inc01 (0 rows, 21 columns) saved in 0.13 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Inc_3_01_101/existing_inc01.parquet'
+NOTE: DataFrame inc.grs_contrit_inc101_2023_amt (0 rows, 12 columns) saved in 0.26 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Inc_3_01_101/grs_contrit_inc101_2023_amt.parquet'
+NOTE: RIPL Process ran in 0.17 seconds, generated 0 records
+NOTE: DataFrame inc.existing_inc101 (0 rows, 18 columns) saved in 0.56 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Inc_3_01_101/existing_inc101.parquet'
+NOTE: DataFrame inplan.existing_inc3 (0 rows, 13 columns) saved in 0.20 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/inplan/existing_inc3.parquet'
+NOTE: DataFrame inplan.existing_inc01 (0 rows, 21 columns) saved in 0.21 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/inplan/existing_inc01.parquet'
+NOTE: DataFrame inplan.existing_inc101 (0 rows, 18 columns) saved in 0.15 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/inplan/existing_inc101.parquet'
+NOTE: DataFrame _cnt.client_plan_mbr_seg_sum_202307 (4 rows, 17 columns) saved in 0.36 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Summary_Count/client_plan_mbr_seg_sum_202307.parquet'
+NOTE: DataFrame _cnt.mbr_seg_sum_202307 (2 rows, 15 columns) saved in 0.30 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Summary_Count/mbr_seg_sum_202307.parquet'
+NOTE: DataFrame _cnt.mbr_seg_cnt_202307 (2 rows, 6 columns) saved in 0.32 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Summary_Count/mbr_seg_cnt_202307.parquet'
+NOTE: DataFrame _cnt.mbr_seg_cnt_202307 (2 rows, 7 columns) saved in 0.15 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Summary_Count/mbr_seg_cnt_202307.parquet'
+NOTE: DataFrame _cnt.mbr_seg_cnt_202307 (2 rows, 8 columns) saved in 0.13 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Summary_Count/mbr_seg_cnt_202307.parquet'
+NOTE: DataFrame _cnt.mbr_seg_cnt_202307 (2 rows, 9 columns) saved in 0.22 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Summary_Count/mbr_seg_cnt_202307.parquet'
+NOTE: DataFrame _cnt.mbr_seg_cnt_202307 (2 rows, 10 columns) saved in 0.21 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Summary_Count/mbr_seg_cnt_202307.parquet'
+NOTE: DataFrame _cnt.mbr_seg_cnt_202307 (2 rows, 11 columns) saved in 0.13 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Summary_Count/mbr_seg_cnt_202307.parquet'
+NOTE: DataFrame _cnt.mbr_seg_cnt_202307 (2 rows, 12 columns) saved in 0.26 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Summary_Count/mbr_seg_cnt_202307.parquet'
+NOTE: DataFrame _cnt.mbr_seg_cnt_202307 (2 rows, 13 columns) saved in 0.18 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Summary_Count/mbr_seg_cnt_202307.parquet'
+NOTE: DataFrame _cnt.mbr_seg_cnt_202307 (2 rows, 14 columns) saved in 0.18 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Summary_Count/mbr_seg_cnt_202307.parquet'
+NOTE: DataFrame _cnt.mbr_seg_cnt_202307 (2 rows, 15 columns) saved in 0.17 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Summary_Count/mbr_seg_cnt_202307.parquet'
+NOTE: DataFrame _cnt.mbr_seg_cnt_202307 (2 rows, 16 columns) saved in 0.14 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Summary_Count/mbr_seg_cnt_202307.parquet'
+NOTE: DataFrame _cnt.mbr_seg_cnt_202307 (2 rows, 17 columns) saved in 0.27 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Summary_Count/mbr_seg_cnt_202307.parquet'
+NOTE: DataFrame _cnt.mbr_seg_cnt_202307 (2 rows, 18 columns) saved in 0.17 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Summary_Count/mbr_seg_cnt_202307.parquet'
+NOTE: DataFrame _cnt.mbr_seg_cnt_202307 (2 rows, 19 columns) saved in 0.22 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Summary_Count/mbr_seg_cnt_202307.parquet'
+NOTE: DataFrame _cnt.existing_inc_202307 (0 rows, 12 columns) saved in 0.40 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Summary_Count/existing_inc_202307.parquet'
+NOTE: DataFrame _cnt.existing_inc_cnt_202307 (0 rows, 5 columns) saved in 0.25 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Summary_Count/existing_inc_cnt_202307.parquet'
+NOTE: DataFrame _cnt.existing_cnt_all_202307 (0 rows, 14 columns) saved in 0.21 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Summary_Count/existing_cnt_all_202307.parquet'
+NOTE: DataFrame _cnt.existing_uniqueidcnt_202307 (0 rows, 3 columns) saved in 0.29 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Summary_Count/existing_uniqueidcnt_202307.parquet'
+NOTE: DataFrame _cnt.existing_uniqueidcntall_202307 (0 rows, 2 columns) saved in 0.20 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Summary_Count/existing_uniqueidcntall_202307.parquet'
+NOTE: DataFrame _cnt.new_vol_trans_lump_cnt_202307 (1 rows, 2 columns) saved in 0.25 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Summary_Count/new_vol_trans_lump_cnt_202307.parquet'
+NOTE: DataFrame _cnt.existing_inc_amt_annual (0 rows, 4 columns) saved in 0.45 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Summary_Count/existing_inc_amt_annual.parquet'
+NOTE: DataFrame excl.new_mbr_seg_sum_202307 (1 rows, 14 columns) saved in 0.32 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Excel_Output/new_mbr_seg_sum_202307.parquet'
+NOTE: DataFrame excl.new_mbr_seg_cnt_202307 (0 rows, 15 columns) saved in 0.40 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Excel_Output/new_mbr_seg_cnt_202307.parquet'
+NOTE: DataFrame excl.existing_inc (0 rows, 5 columns) saved in 0.15 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Excel_Output/existing_inc.parquet'
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+NOTE: DataFrame excl.excel_202307 (7 rows, 6 columns) saved in 0.17 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Excel_Output/excel_202307.parquet'
+NOTE: DataFrame qa.t10_ti_sponsor_mbr_seg_2023q3 (1 rows, 14 columns) saved in 0.25 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/QA/t10_ti_sponsor_mbr_seg_2023q3.parquet'
+NOTE: DataFrame qa.t10_ti_sponsor_mbr_seg_2023q3 (1 rows, 15 columns) saved in 0.13 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/QA/t10_ti_sponsor_mbr_seg_2023q3.parquet'
+NOTE: DataFrame qa.t10_ti_sponsor_mbr_seg_2023q3 (1 rows, 15 columns) saved in 0.16 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/QA/t10_ti_sponsor_mbr_seg_2023q3.parquet'
+NOTE: DataFrame qa.t10_total_sponsor_mbr_seg_2023q3 (1 rows, 14 columns) saved in 0.26 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/QA/t10_total_sponsor_mbr_seg_2023q3.parquet'
+NOTE: DataFrame qa.t10_lp_sponsor_mbr_seg_2023q3 (1 rows, 14 columns) saved in 0.20 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/QA/t10_lp_sponsor_mbr_seg_2023q3.parquet'
+NOTE: DataFrame qa.t10_lp_sponsor_mbr_seg_2023q3 (1 rows, 15 columns) saved in 0.18 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/QA/t10_lp_sponsor_mbr_seg_2023q3.parquet'
+NOTE: DataFrame qa.t10_lp_sponsor_mbr_seg_2023q3 (1 rows, 15 columns) saved in 0.13 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/QA/t10_lp_sponsor_mbr_seg_2023q3.parquet'
+NOTE: DataFrame qa.t10_ti_sponsor_mbr_seg_dt_2023q3 (1 rows, 12 columns) saved in 0.13 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/QA/t10_ti_sponsor_mbr_seg_dt_2023q3.parquet'
+NOTE: DataFrame qa.existing_inc3_2023q3 (0 rows, 9 columns) saved in 0.14 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/QA/existing_inc3_2023q3.parquet'
+NOTE: DataFrame qa.existing_inc3_2023q3 (0 rows, 10 columns) saved in 0.13 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/QA/existing_inc3_2023q3.parquet'
+NOTE: DataFrame qa.existing_inc01_2023q3 (0 rows, 10 columns) saved in 0.33 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/QA/existing_inc01_2023q3.parquet'
+NOTE: DataFrame qa.existing_inc01_2023q3 (0 rows, 11 columns) saved in 0.13 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/QA/existing_inc01_2023q3.parquet'
+NOTE: DataFrame qa.existing_inc101_2023q3 (0 rows, 9 columns) saved in 0.12 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/QA/existing_inc101_2023q3.parquet'
+NOTE: DataFrame qa.existing_inc101_2023q3 (0 rows, 10 columns) saved in 0.13 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/QA/existing_inc101_2023q3.parquet'
+NOTE: DataFrame qa.inplan_202307_member_sum (1 rows, 14 columns) saved in 0.30 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/QA/inplan_202307_member_sum.parquet'
+NOTE: DataFrame qa.t20_ti_mbr_seg_2023q3 (1 rows, 15 columns) saved in 0.25 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/QA/t20_ti_mbr_seg_2023q3.parquet'
+NOTE: DataFrame qa.t20_ti_mbr_seg_2023q3 (1 rows, 15 columns) saved in 0.16 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/QA/t20_ti_mbr_seg_2023q3.parquet'
+NOTE: DataFrame qa.t20_lp_mbr_seg_2023q3 (1 rows, 15 columns) saved in 0.29 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/QA/t20_lp_mbr_seg_2023q3.parquet'
+NOTE: DataFrame qa.t20_lp_mbr_seg_2023q3 (1 rows, 15 columns) saved in 0.13 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/QA/t20_lp_mbr_seg_2023q3.parquet'
+NOTE: DataFrame qa.t20_total_mbr_seg_2023q3 (1 rows, 15 columns) saved in 0.20 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/QA/t20_total_mbr_seg_2023q3.parquet'
+NOTE: DataFrame qa.t20_total_mbr_seg_2023q3 (1 rows, 15 columns) saved in 0.15 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/QA/t20_total_mbr_seg_2023q3.parquet'
+NOTE: DataFrame qa.existing_inc3_mbr_2023q3 (0 rows, 9 columns) saved in 0.12 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/QA/existing_inc3_mbr_2023q3.parquet'
+NOTE: DataFrame qa.existing_inc3_mbr_2023q3 (0 rows, 11 columns) saved in 0.13 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/QA/existing_inc3_mbr_2023q3.parquet'
+NOTE: DataFrame qa.existing_inc01_mbr_2023q3 (0 rows, 9 columns) saved in 0.12 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/QA/existing_inc01_mbr_2023q3.parquet'
+NOTE: DataFrame qa.existing_inc01_mbr_2023q3 (0 rows, 11 columns) saved in 0.12 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/QA/existing_inc01_mbr_2023q3.parquet'
+NOTE: DataFrame qa.existing_inc101_mbr_2023q3 (0 rows, 9 columns) saved in 0.12 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/QA/existing_inc101_mbr_2023q3.parquet'
+NOTE: DataFrame qa.existing_inc101_mbr_2023q3 (0 rows, 11 columns) saved in 0.17 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/QA/existing_inc101_mbr_2023q3.parquet'
+NOTE: DataFrame qa.top10_new_mbr_seg_client_vol (0 rows, 8 columns) saved in 0.23 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/QA/top10_new_mbr_seg_client_vol.parquet'
+NOTE: DataFrame qa.top10_new_mbr_seg_client_tilp (0 rows, 8 columns) saved in 0.17 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/QA/top10_new_mbr_seg_client_tilp.parquet'
+NOTE: DataFrame inc.existing_inc01_removed (0 rows, 21 columns) saved in 0.23 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Inc_3_01_101/existing_inc01_removed.parquet'
+NOTE: DataFrame inc.existing_inc101_removed (0 rows, 18 columns) saved in 0.13 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Inc_3_01_101/existing_inc101_removed.parquet'
+NOTE: DataFrame inc.existing_inc3_removed (0 rows, 13 columns) saved in 0.13 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/Data/Payroll_Increase/202307/Inc_3_01_101/existing_inc3_removed.parquet'
+NOTE: Library output assigned with PARQUET engine. Found 1 table(s) in 0.07 seconds.
+NOTE: Library ads0_ay assigned with PARQUET engine. Found 0 table(s) in 0.01 seconds.
+NOTE: Library ads0_cx assigned with PARQUET engine. Found 1 table(s) in 0.06 seconds.
+NOTE: Library ads0_gs assigned with PARQUET engine. Found 2 table(s) in 0.12 seconds.
+NOTE: Library ads0_hp assigned with PARQUET engine. Found 2 table(s) in 0.12 seconds.
+NOTE: Library ads0_id assigned with PARQUET engine. Found 3 table(s) in 0.17 seconds.
+NOTE: Library ads0_ju assigned with PARQUET engine. Found 1 table(s) in 0.06 seconds.
+NOTE: Library ads0_la assigned with PARQUET engine. Found 1 table(s) in 0.06 seconds.
+NOTE: Library ads0_lf assigned with PARQUET engine. Found 1 table(s) in 0.06 seconds.
+NOTE: Library ads0_m2 assigned with PARQUET engine. Found 2 table(s) in 0.12 seconds.
+NOTE: Library ads0_xc assigned with PARQUET engine. Found 1 table(s) in 0.07 seconds.
+NOTE: Library sx6p1 assigned with PARQUET engine. Found 3 table(s) in 0.20 seconds.
+NOTE: Library actives assigned with PARQUET engine. Found 3 table(s) in 0.23 seconds.
+NOTE: Library univ assigned with PARQUET engine. Found 3 table(s) in 0.19 seconds.
+Frequency Summary Statistics
++------+-----+-------+---------+-----------+
+|unique|COUNT|PERCENT|CUM_COUNT|CUM_PERCENT|
++------+-----+-------+---------+-----------+
++------+-----+-------+---------+-----------+
+
+Frequency Summary Statistics
++------+-----+------------------+---------+----------------+
+|unique|COUNT|           PERCENT|CUM_COUNT|     CUM_PERCENT|
++------+-----+------------------+---------+----------------+
+|    No| 1892|  98.9539748953975|     1892|98.9539748953975|
+|   Yes|   20|1.0460251046025104|     1912|           100.0|
++------+-----+------------------+---------+----------------+
+
+Frequency Summary Statistics
++----+-----+-------+---------+-----------+
+|type|COUNT|PERCENT|CUM_COUNT|CUM_PERCENT|
++----+-----+-------+---------+-----------+
++----+-----+-------+---------+-----------+
+
+NOTE: Library mylib assigned with PARQUET engine. Found 4 table(s) in 0.27 seconds.
+NOTE: Library output assigned with PARQUET engine. Found 1 table(s) in 0.07 seconds.
+to_date('2022-12-10')
+to_date('2023-07-01')
+NOTE: Library univeris assigned with PARQUET engine. Found 3 table(s) in 0.22 seconds.
+NOTE: Library gbdblib assigned with PARQUET engine. Found 3 table(s) in 0.25 seconds.
+NOTE: Library pl assigned with PARQUET engine. Found 3 table(s) in 0.19 seconds.
+NOTE: Library oasis assigned with PARQUET engine. Found 3 table(s) in 0.23 seconds.
+'None'
+NOTE: Library output2 assigned with PARQUET engine. Found 8 table(s) in 0.44 seconds.
+NOTE: DataFrame output2.ind_result_landing_final (1,000 rows, 16 columns) saved in 0.15 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ind_mrktng/Production/AIP Quarterly Process/PFA PHA Client Count V2/Data Output/ind_result_landing_final.parquet'
+NOTE: DataFrame output2.ind_result_landing_final (1,000 rows, 16 columns) saved in 0.16 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ind_mrktng/Production/AIP Quarterly Process/PFA PHA Client Count V2/Data Output/ind_result_landing_final.parquet'
+NOTE: DataFrame actives.indmonthlypartyproducts_v2 (944 rows, 10 columns) saved in 0.14 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ind_mrktng/OPERATIONAL_DATA/DAILY_ACTIVES_W_FLAGS/indmonthlypartyproducts_v2.parquet'
+NOTE: DataFrame actives.indmonthlypartyproducts_v2 (944 rows, 10 columns) saved in 0.80 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ind_mrktng/OPERATIONAL_DATA/DAILY_ACTIVES_W_FLAGS/indmonthlypartyproducts_v2.parquet'
+NOTE: Library actives assigned with PARQUET engine. Found 3 table(s) in 0.18 seconds.
+NOTE: Library ddagrs assigned with PARQUET engine. Found 1 table(s) in 0.07 seconds.
+NOTE: Library output assigned with PARQUET engine. Found 11 table(s) in 0.60 seconds.
+NOTE: Library ceit assigned with PARQUET engine. Found 1 table(s) in 0.12 seconds.
+NOTE: Library da assigned with PARQUET engine. Found 1 table(s) in 0.06 seconds.
+NOTE: Library itt assigned with PARQUET engine. Found 1 table(s) in 0.06 seconds.
+to_date('2023-07-01')
+to_date('2023-07-31')
+to_date('2023-08-01')
+to_date('2023-05-01')
+NOTE: DataFrame output.wlt_lumpsum (940 rows, 7 columns) saved in 0.13 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ind_mrktng/Production/AIP Quarterly Process/PFA PHA Client Count V2/Data Input/wlt_lumpsum.parquet'
+NOTE: DataFrame output.wlt_lumpsum (940 rows, 7 columns) saved in 0.72 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ind_mrktng/Production/AIP Quarterly Process/PFA PHA Client Count V2/Data Input/wlt_lumpsum.parquet'
+NOTE: DataFrame output.wlt_asset_cons (958 rows, 9 columns) saved in 0.13 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ind_mrktng/Production/AIP Quarterly Process/PFA PHA Client Count V2/Data Input/wlt_asset_cons.parquet'
+NOTE: DataFrame output.wlt_asset_cons (958 rows, 9 columns) saved in 0.79 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ind_mrktng/Production/AIP Quarterly Process/PFA PHA Client Count V2/Data Input/wlt_asset_cons.parquet'
+NOTE: DataFrame da.acctgrs (953 rows, 8 columns) saved in 0.14 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ind_mrktng/Production/Digital Adoption AIP/Data Output/acctgrs.parquet'
+NOTE: DataFrame da.acctgrs (953 rows, 8 columns) saved in 0.19 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ind_mrktng/Production/Digital Adoption AIP/Data Output/acctgrs.parquet'
++-----------------------+
+|Calendarmonthstartdate9|
++-----------------------+
+|             2023-06-15|
++-----------------------+
+
+NOTE: Library cif assigned with PARQUET engine. Found 1 table(s) in 0.08 seconds.
+NOTE: DataFrame output.wltchoicetransitionfinal (1,000 rows, 6 columns) saved in 0.21 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ind_mrktng/Production/AIP Quarterly Process/PFA PHA Client Count V2/Data Input/wltchoicetransitionfinal.parquet'
+NOTE: Library oasis assigned with PARQUET engine. Found 3 table(s) in 0.18 seconds.
+NOTE: Library act assigned with PARQUET engine. Found 2 table(s) in 0.14 seconds.
+NOTE: DataFrame output.transitiongbtochoiceqtd (1,000 rows, 3 columns) saved in 0.15 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ind_mrktng/Production/AIP Quarterly Process/PFA PHA Client Count V2/Data Input/transitiongbtochoiceqtd.parquet'
+NOTE: DataFrame output.transitiongbtochoiceqtd (1,000 rows, 3 columns) saved in 0.67 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ind_mrktng/Production/AIP Quarterly Process/PFA PHA Client Count V2/Data Input/transitiongbtochoiceqtd.parquet'
+NOTE: DataFrame output.grs_pac_ls_ti_tr (1,000 rows, 10 columns) saved in 0.15 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ind_mrktng/Production/AIP Quarterly Process/PFA PHA Client Count V2/Data Input/grs_pac_ls_ti_tr.parquet'
+NOTE: DataFrame output.grs_pac_ls_ti_tr (1,000 rows, 10 columns) saved in 0.15 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ind_mrktng/Production/AIP Quarterly Process/PFA PHA Client Count V2/Data Input/grs_pac_ls_ti_tr.parquet'
+Frequency Summary Statistics
++-----------------------+-----+-------+---------+------------------+
+|CalendarMonthStartDate9|COUNT|PERCENT|CUM_COUNT|       CUM_PERCENT|
++-----------------------+-----+-------+---------+------------------+
+|             2002-06-03|    2|    0.2|        2|               0.2|
+|             1967-04-08|    2|    0.2|        4|               0.4|
+|             2002-04-03|    2|    0.2|        6|0.6000000000000001|
+|             1990-03-10|    2|    0.2|        8|               0.8|
+|             1996-04-14|    2|    0.2|       10|               1.0|
+|             1994-05-17|    2|    0.2|       12|               1.2|
+|             2016-08-18|    2|    0.2|       14|               1.4|
+|             1983-11-30|    2|    0.2|       16|1.5999999999999999|
+|             1990-03-09|    2|    0.2|       18|1.7999999999999998|
+|             1966-07-06|    2|    0.2|       20|1.9999999999999998|
+|             2001-02-07|    2|    0.2|       22|2.1999999999999997|
+|             1989-06-24|    2|    0.2|       24|               2.4|
+|             2018-06-29|    2|    0.2|       26|               2.6|
+|             1974-02-02|    2|    0.2|       28|2.8000000000000003|
+|             1975-07-21|    2|    0.2|       30|3.0000000000000004|
+|             1978-12-19|    2|    0.2|       32|3.2000000000000006|
+|             1983-11-20|    2|    0.2|       34| 3.400000000000001|
+|             2011-02-16|    2|    0.2|       36| 3.600000000000001|
+|             1998-05-12|    2|    0.2|       38| 3.800000000000001|
+|             2009-05-22|    2|    0.2|       40| 4.000000000000001|
++-----------------------+-----+-------+---------+------------------+
+only showing top 20 rows
+
+to_date('2023-07-01')
+to_date('2023-07-31')
+to_date('2023-05-01')
+2023-05-31
+to_date('2023-07-01') to_date('2023-07-31') to_date('2023-05-01') 2023-05-31
+202307
+to_date('2023-07-01')
+202307
+202307
+NOTE: Library slf assigned with PARQUET engine. Found 2 table(s) in 0.13 seconds.
+NOTE: Library cif assigned with PARQUET engine. Found 1 table(s) in 0.06 seconds.
+NOTE: Library grs_new assigned with PARQUET engine. Found 5 table(s) in 0.28 seconds.
+NOTE: Library pol_map assigned with PARQUET engine. Found 1 table(s) in 0.07 seconds.
+NOTE: Library itt assigned with PARQUET engine. Found 1 table(s) in 0.07 seconds.
+NOTE: Library oasis assigned with PARQUET engine. Found 3 table(s) in 0.21 seconds.
+NOTE: Library ming assigned with PARQUET engine. Found 21 table(s) in 0.99 seconds.
+NOTE: Library tr assigned with PARQUET engine. Found 1 table(s) in 0.06 seconds.
+NOTE: Library w1 assigned with PARQUET engine. Found 21 table(s) in 1.02 seconds.
+NOTE: Library ss assigned with PARQUET engine. Found 1 table(s) in 0.06 seconds.
+202307
+202307
+202307
+202307
+202307 202307 202307
+/cdnsasprd.sunlifecorp.com/ind_mrktng/File Transfer - For Matt/07. Expanded BIF_July 2023.xlsb
+NOTE: Library grs assigned with PARQUET engine. Found 3 table(s) in 0.16 seconds.
+NOTE: Library grs assigned with PARQUET engine. Found 3 table(s) in 0.19 seconds.
+NOTE: Library grs assigned with PARQUET engine. Found 3 table(s) in 0.18 seconds.
+NOTE: Library grs assigned with PARQUET engine. Found 3 table(s) in 0.18 seconds.
+NOTE: DataFrame w1._add_porducts_grs_202307 (0 rows, 32 columns) saved in 0.28 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/04 Project/Client Metrics/202307/Positive_Financial_Actions/data/_add_porducts_grs_202307.parquet'
+NOTE: DataFrame w1._add_porducts_choice_202307 (0 rows, 37 columns) saved in 0.31 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/04 Project/Client Metrics/202307/Positive_Financial_Actions/data/_add_porducts_choice_202307.parquet'
+NOTE: DataFrame w1.cnt_add_prod_grs_202307 (0 rows, 8 columns) saved in 0.22 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/04 Project/Client Metrics/202307/Positive_Financial_Actions/data/cnt_add_prod_grs_202307.parquet'
+NOTE: DataFrame w1.cnt_add_prod_grs_202307 (0 rows, 8 columns) saved in 0.18 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/04 Project/Client Metrics/202307/Positive_Financial_Actions/data/cnt_add_prod_grs_202307.parquet'
+NOTE: DataFrame w1.cnt_add_prod_grs_202307 (0 rows, 9 columns) saved in 0.15 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/04 Project/Client Metrics/202307/Positive_Financial_Actions/data/cnt_add_prod_grs_202307.parquet'
+NOTE: DataFrame w1.cnt_add_prod_choice_202307 (0 rows, 9 columns) saved in 0.29 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/04 Project/Client Metrics/202307/Positive_Financial_Actions/data/cnt_add_prod_choice_202307.parquet'
+NOTE: DataFrame w1.cnt_add_prod_choice_202307 (0 rows, 10 columns) saved in 0.18 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/04 Project/Client Metrics/202307/Positive_Financial_Actions/data/cnt_add_prod_choice_202307.parquet'
+NOTE: DataFrame w1._contribution (0 rows, 10 columns) saved in 0.13 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/04 Project/Client Metrics/202307/Positive_Financial_Actions/data/_contribution.parquet'
+3
+NOTE: Library g202307 assigned with PARQUET engine. Found 3 table(s) in 0.19 seconds.
+NOTE: Library g202307 assigned with PARQUET engine. Found 3 table(s) in 0.16 seconds.
+NOTE: Library g202307 assigned with PARQUET engine. Found 3 table(s) in 0.16 seconds.
+gall
+NOTE: Library gall assigned with CONCAT engine. Found 3 table(s) in 0.00 seconds.
+NOTE: DataFrame w1.grs_contrib_202307 (0 rows, 13 columns) saved in 0.21 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/04 Project/Client Metrics/202307/Positive_Financial_Actions/data/grs_contrib_202307.parquet'
+NOTE: DataFrame w1._contribution (0 rows, 10 columns) saved in 0.17 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/04 Project/Client Metrics/202307/Positive_Financial_Actions/data/_contribution.parquet'
+3
+NOTE: Library g202307 assigned with PARQUET engine. Found 3 table(s) in 0.19 seconds.
+NOTE: Library g202307 assigned with PARQUET engine. Found 3 table(s) in 0.18 seconds.
+NOTE: Library g202307 assigned with PARQUET engine. Found 3 table(s) in 0.22 seconds.
+gall
+NOTE: Library gall assigned with CONCAT engine. Found 3 table(s) in 0.00 seconds.
+NOTE: DataFrame w1.choices_contrib_202307 (0 rows, 13 columns) saved in 0.17 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/04 Project/Client Metrics/202307/Positive_Financial_Actions/data/choices_contrib_202307.parquet'
+NOTE: DataFrame w1._conversions_wlt_202307 (0 rows, 22 columns) saved in 0.27 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/04 Project/Client Metrics/202307/Positive_Financial_Actions/data/_conversions_wlt_202307.parquet'
+NOTE: DataFrame w1.cnt_conversion_choice_202307 (0 rows, 4 columns) saved in 0.12 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/04 Project/Client Metrics/202307/Positive_Financial_Actions/data/cnt_conversion_choice_202307.parquet'
+NOTE: Library w1_path assigned with PARQUET engine. Found 21 table(s) in 1.19 seconds.
+NOTE: DataFrame w1_path.cnt_new_hlt_choice_c_202307 (0 rows, 3 columns) saved in 0.29 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/04 Project/Client Metrics/202307/Positive_Financial_Actions/data/cnt_new_hlt_choice_c_202307.parquet'
+NOTE: DataFrame w1_path.cnt_new_life_choice_c_202307 (0 rows, 3 columns) saved in 0.21 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/04 Project/Client Metrics/202307/Positive_Financial_Actions/data/cnt_new_life_choice_c_202307.parquet'
+NOTE: DataFrame w1._rollovers_wlt_202307 (0 rows, 22 columns) saved in 0.24 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/04 Project/Client Metrics/202307/Positive_Financial_Actions/data/_rollovers_wlt_202307.parquet'
+NOTE: DataFrame w1.cnt_rollover_grs_202307 (0 rows, 4 columns) saved in 0.12 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/04 Project/Client Metrics/202307/Positive_Financial_Actions/data/cnt_rollover_grs_202307.parquet'
+NOTE: DataFrame w1._rollovers_wlt_202307 (0 rows, 4 columns) saved in 0.22 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/04 Project/Client Metrics/202307/Positive_Financial_Actions/data/_rollovers_wlt_202307.parquet'
+NOTE: DataFrame w1.cnt_rollover_grs_ind_202307 (0 rows, 4 columns) saved in 0.15 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/04 Project/Client Metrics/202307/Positive_Financial_Actions/data/cnt_rollover_grs_ind_202307.parquet'
+NOTE: Library tr assigned with PARQUET engine. Found 1 table(s) in 0.06 seconds.
+Month 202307
+NOTE: Library grs assigned with PARQUET engine. Found 3 table(s) in 0.16 seconds.
+NOTE: DataFrame w1._rollovers_stay_in_grs_202307 (0 rows, 7 columns) saved in 0.22 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/04 Project/Client Metrics/202307/Positive_Financial_Actions/data/_rollovers_stay_in_grs_202307.parquet'
+Month 202307
+NOTE: Library grs assigned with PARQUET engine. Found 3 table(s) in 0.22 seconds.
+NOTE: DataFrame w1._rollovers_stay_in_grs_202307 (0 rows, 7 columns) saved in 0.22 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/04 Project/Client Metrics/202307/Positive_Financial_Actions/data/_rollovers_stay_in_grs_202307.parquet'
+Month 202307
+NOTE: Library grs assigned with PARQUET engine. Found 3 table(s) in 0.19 seconds.
+NOTE: DataFrame w1._rollovers_stay_in_grs_202307 (0 rows, 7 columns) saved in 0.25 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/04 Project/Client Metrics/202307/Positive_Financial_Actions/data/_rollovers_stay_in_grs_202307.parquet'
+NOTE: DataFrame w1.cnt_rollover_stay_in_grs_202307 (0 rows, 3 columns) saved in 0.14 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/04 Project/Client Metrics/202307/Positive_Financial_Actions/data/cnt_rollover_stay_in_grs_202307.parquet'
+Frequency Summary Statistics
++--------------+-----+-------+---------+-----------+
+|Month_Reported|COUNT|PERCENT|CUM_COUNT|CUM_PERCENT|
++--------------+-----+-------+---------+-----------+
++--------------+-----+-------+---------+-----------+
+
+Frequency Summary Statistics
++-----------+-----+-------+---------+-----------+
+|BenefitName|COUNT|PERCENT|CUM_COUNT|CUM_PERCENT|
++-----------+-----+-------+---------+-----------+
++-----------+-----+-------+---------+-----------+
+
+Frequency Summary Statistics
++----------------+-----+-------+---------+-----------+
+|Detailed_Product|COUNT|PERCENT|CUM_COUNT|CUM_PERCENT|
++----------------+-----+-------+---------+-----------+
++----------------+-----+-------+---------+-----------+
+
+NOTE: DataFrame w1.cnt_vb_202307 (0 rows, 4 columns) saved in 0.13 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/04 Project/Client Metrics/202307/Positive_Financial_Actions/data/cnt_vb_202307.parquet'
+NOTE: DataFrame w1.sum_total_grs_rollover_202307 (0 rows, 9 columns) saved in 0.20 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/04 Project/Client Metrics/202307/Positive_Financial_Actions/data/sum_total_grs_rollover_202307.parquet'
+======= GRS Rollover 202307 =======
+======= GRS 202307 =======
+Frequency Summary Statistics
++---------+------------+-------------+------------+-----+-------+---------+-----------+
+|CII_spnsr|OptCII_spnsr|OptLife_spnsr|OptADD_spnsr|COUNT|PERCENT|CUM_COUNT|CUM_PERCENT|
++---------+------------+-------------+------------+-----+-------+---------+-----------+
++---------+------------+-------------+------------+-----+-------+---------+-----------+
+
+Frequency Summary Statistics
++-------+-----+-------+---------+-----------+
+|Bcode_1|COUNT|PERCENT|CUM_COUNT|CUM_PERCENT|
++-------+-----+-------+---------+-----------+
++-------+-----+-------+---------+-----------+
+
+=== VB eligible ===
+Summary Statistics
++-------------+----+---+
+|     Variable|Mean|  N|
++-------------+----+---+
+|OptLife_spnsr|null|0.0|
+|    CII_spnsr|null|0.0|
+| OptADD_spnsr|null|0.0|
+|       has_vb|null|0.0|
+|  has_optLife|null|0.0|
+|   has_optADD|null|0.0|
+|      has_cii|null|0.0|
++-------------+----+---+
+
++------+-----+
+|policy| PSID|
++------+-----+
+|GHIJKL|21272|
++------+-----+
+
+=== SA distinct party_id ===
++------------+
+|cnt_party_id|
++------------+
+|           0|
++------------+
+
+=== IPH distinct party_id ===
++------------+
+|cnt_party_id|
++------------+
+|           0|
++------------+
+
+NOTE: Library ai_all assigned with PARQUET engine. Found 2 table(s) in 0.11 seconds.
+NOTE: DataFrame ai_all.party_spm (1,000 rows, 2 columns) saved in 0.12 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/04 Project/Client Metrics/IA All months/party_spm.parquet'
+NOTE: DataFrame ai_all.party_spm (1,000 rows, 2 columns) saved in 0.67 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/04 Project/Client Metrics/IA All months/party_spm.parquet'
+=== SPM distinct party_id ===
++------------+
+|cnt_party_id|
++------------+
+|           0|
++------------+
+
+NOTE: DataFrame ai_all.party_ia (1,000 rows, 2 columns) saved in 0.13 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/04 Project/Client Metrics/IA All months/party_ia.parquet'
+NOTE: DataFrame ai_all.party_ia (1,000 rows, 2 columns) saved in 0.12 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/04 Project/Client Metrics/IA All months/party_ia.parquet'
+NOTE: DataFrame ai_all.party_ia (1,000 rows, 2 columns) saved in 0.77 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ClientSolutions5/Advanced Analytics/04 Project/Client Metrics/IA All months/party_ia.parquet'
+Frequency Summary Statistics
++-----+-----+-------+---------+-----------+
+|in_IA|COUNT|PERCENT|CUM_COUNT|CUM_PERCENT|
++-----+-----+-------+---------+-----------+
++-----+-----+-------+---------+-----------+
+
+=== GB Member Base ===
++------------+
+|cnt_party_id|
++------------+
+|           0|
++------------+
+
+=== 202307 IA Active Member Base (Exclude `Sun Advantage`, `In Patriate Health` and `Sponsored Market`) ===
++------------+
+|cnt_party_id|
++------------+
+|           0|
++------------+
+
+======= 202307 Active Member Base =======
+Frequency Summary Statistics
++-------+-----+-------------------+---------+------------------+
+|ind_GRS|COUNT|            PERCENT|CUM_COUNT|       CUM_PERCENT|
++-------+-----+-------------------+---------+------------------+
+|    777|    5| 0.5336179295624333|        5|0.5336179295624333|
+|    710|    4|0.42689434364994666|        9|0.9605122732123799|
+|    414|    3|0.32017075773745995|       12|1.2806830309498398|
+|    597|    3|0.32017075773745995|       15|1.6008537886872998|
+|   -974|    3|0.32017075773745995|       18|1.9210245464247597|
+|   -615|    3|0.32017075773745995|       21|2.2411953041622197|
+|    690|    3|0.32017075773745995|       24|2.5613660618996796|
+|   -192|    3|0.32017075773745995|       27|2.8815368196371396|
+|     61|    3|0.32017075773745995|       30|3.2017075773745995|
+|   -534|    3|0.32017075773745995|       33|3.5218783351120595|
+|   -836|    3|0.32017075773745995|       36|3.8420490928495195|
+|   -380|    3|0.32017075773745995|       39| 4.162219850586979|
+|   -249|    3|0.32017075773745995|       42|4.4823906083244385|
+|   -627|    3|0.32017075773745995|       45| 4.802561366061898|
+|   -535|    3|0.32017075773745995|       48|5.1227321237993575|
+|   -607|    3|0.32017075773745995|       51| 5.442902881536817|
+|    552|    3|0.32017075773745995|       54|5.7630736392742765|
+|    372|    3|0.32017075773745995|       57| 6.083244397011736|
+|   -508|    3|0.32017075773745995|       60|6.4034151547491955|
+|   -121|    3|0.32017075773745995|       63| 6.723585912486655|
++-------+-----+-------------------+---------+------------------+
+only showing top 20 rows
+
+Frequency Summary Statistics
++----------+-----+-------------------+---------+-------------------+
+|ind_Choice|COUNT|            PERCENT|CUM_COUNT|        CUM_PERCENT|
++----------+-----+-------------------+---------+-------------------+
+|       529|    4|0.41753653444676403|        4|0.41753653444676403|
+|      -286|    3|0.31315240083507306|        7| 0.7306889352818371|
+|       431|    3|0.31315240083507306|       10|   1.04384133611691|
+|       461|    3|0.31315240083507306|       13|  1.356993736951983|
+|      -501|    3|0.31315240083507306|       16| 1.6701461377870561|
+|      -299|    3|0.31315240083507306|       19| 1.9832985386221291|
+|      -777|    3|0.31315240083507306|       22| 2.2964509394572024|
+|       752|    3|0.31315240083507306|       25| 2.6096033402922756|
+|       133|    3|0.31315240083507306|       28|  2.922755741127349|
+|       860|    3|0.31315240083507306|       31|  3.235908141962422|
+|       348|    3|0.31315240083507306|       34| 3.5490605427974953|
+|       306|    3|0.31315240083507306|       37| 3.8622129436325685|
+|      -922|    3|0.31315240083507306|       40|  4.175365344467641|
+|      -859|    3|0.31315240083507306|       43| 4.4885177453027145|
+|      -126|    3|0.31315240083507306|       46|  4.801670146137788|
+|      -790|    3|0.31315240083507306|       49|  5.114822546972861|
+|       599|    3|0.31315240083507306|       52|  5.427974947807934|
+|       -92|    3|0.31315240083507306|       55| 5.7411273486430074|
+|       787|    3|0.31315240083507306|       58|  6.054279749478081|
+|        22|    3|0.31315240083507306|       61|  6.367432150313154|
++----------+-----+-------------------+---------+-------------------+
+only showing top 20 rows
+
+Frequency Summary Statistics
++------+-----+-------------------+---------+------------------+
+|ind_GB|COUNT|            PERCENT|CUM_COUNT|       CUM_PERCENT|
++------+-----+-------------------+---------+------------------+
+|   135|    5| 0.5257623554153523|        5|0.5257623554153523|
+|   997|    3|0.31545741324921134|        8|0.8412197686645637|
+|  -772|    3|0.31545741324921134|       11| 1.156677181913775|
+|  -956|    3|0.31545741324921134|       14|1.4721345951629865|
+|  -751|    3|0.31545741324921134|       17| 1.787592008412198|
+|   266|    3|0.31545741324921134|       20|2.1030494216614093|
+|  -333|    3|0.31545741324921134|       23|2.4185068349106205|
+|  -644|    3|0.31545741324921134|       26|2.7339642481598316|
+|   763|    3|0.31545741324921134|       29| 3.049421661409043|
+|  -885|    3|0.31545741324921134|       32| 3.364879074658254|
+|  -706|    3|0.31545741324921134|       35| 3.680336487907465|
+|    -9|    3|0.31545741324921134|       38|3.9957939011566763|
+|  -222|    3|0.31545741324921134|       41|4.3112513144058875|
+|   927|    3|0.31545741324921134|       44| 4.626708727655099|
+|  -440|    3|0.31545741324921134|       47|  4.94216614090431|
+|   966|    3|0.31545741324921134|       50| 5.257623554153521|
+|  -827|    3|0.31545741324921134|       53| 5.573080967402732|
+|   245|    3|0.31545741324921134|       56| 5.888538380651943|
+|  -892|    3|0.31545741324921134|       59|6.2039957939011545|
+|  -795|    3|0.31545741324921134|       62| 6.519453207150366|
++------+-----+-------------------+---------+------------------+
+only showing top 20 rows
+
+NOTE: Library hist assigned with PARQUET engine. Found 1 table(s) in 0.07 seconds.
+NOTE: Library cif assigned with PARQUET engine. Found 1 table(s) in 0.06 seconds.
+NOTE: Library output assigned with PARQUET engine. Found 11 table(s) in 0.59 seconds.
+202307
+NOTE: DataFrame output.party_grs_plans (957 rows, 3 columns) saved in 0.13 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ind_mrktng/Production/AIP Quarterly Process/PFA PHA Client Count V2/Data Input/party_grs_plans.parquet'
+NOTE: DataFrame output.party_grs_plans (957 rows, 3 columns) saved in 0.13 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ind_mrktng/Production/AIP Quarterly Process/PFA PHA Client Count V2/Data Input/party_grs_plans.parquet'
+NOTE: Library output2 assigned with PARQUET engine. Found 2 table(s) in 0.12 seconds.
+NOTE: Library w1_path assigned with PARQUET engine. Found 21 table(s) in 1.25 seconds.
+NOTE: Library output2 assigned with PARQUET engine. Found 8 table(s) in 0.51 seconds.
+NOTE: DataFrame output2.result_landing_gb_grs_final (951 rows, 20 columns) saved in 0.16 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ind_mrktng/Production/AIP Quarterly Process/PFA PHA Client Count V2/Data Output/result_landing_gb_grs_final.parquet'
+NOTE: DataFrame output2.result_landing_gb_grs_final (1,880 rows, 20 columns) saved in 2.43 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ind_mrktng/Production/AIP Quarterly Process/PFA PHA Client Count V2/Data Output/result_landing_gb_grs_final.parquet'
+to_date('None')
+None
+None
+202307
+NOTE: Library output assigned with PARQUET engine. Found 11 table(s) in 0.72 seconds.
+NOTE: DataFrame output.svfa (1,000 rows, 12 columns) saved in 0.15 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ind_mrktng/Production/AIP Quarterly Process/PFA PHA Client Count V2/Data Input/svfa.parquet'
+NOTE: DataFrame output.svfa (1,000 rows, 12 columns) saved in 0.14 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ind_mrktng/Production/AIP Quarterly Process/PFA PHA Client Count V2/Data Input/svfa.parquet'
+NOTE: Library output2 assigned with PARQUET engine. Found 8 table(s) in 0.48 seconds.
+NOTE: Library uvs assigned with PARQUET engine. Found 1 table(s) in 0.08 seconds.
+NOTE: Library uvs2 assigned with PARQUET engine. Found 3 table(s) in 0.19 seconds.
+NOTE: DataFrame output.govparty (956 rows, 3 columns) saved in 0.14 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ind_mrktng/Production/AIP Quarterly Process/PFA PHA Client Count V2/Data Input/govparty.parquet'
+NOTE: DataFrame output.govparty (956 rows, 3 columns) saved in 0.18 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ind_mrktng/Production/AIP Quarterly Process/PFA PHA Client Count V2/Data Input/govparty.parquet'
+NOTE: DataFrame output.govdentalactive (953 rows, 3 columns) saved in 0.13 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ind_mrktng/Production/AIP Quarterly Process/PFA PHA Client Count V2/Data Input/govdentalactive.parquet'
+NOTE: DataFrame output.govdentalactive (953 rows, 3 columns) saved in 0.14 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ind_mrktng/Production/AIP Quarterly Process/PFA PHA Client Count V2/Data Input/govdentalactive.parquet'
+NOTE: DataFrame act.active_grs_gb_choice_ind_all (952 rows, 12 columns) saved in 0.17 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/Client Solutions/Data Repository DA/SLF Canada Active Base/active_grs_gb_choice_ind_all.parquet'
+NOTE: DataFrame act.active_grs_gb_choice_ind_all (1,952 rows, 12 columns) saved in 2.24 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/Client Solutions/Data Repository DA/SLF Canada Active Base/active_grs_gb_choice_ind_all.parquet'
+/ca.sunlife/dfs/CSC/CSC BI and Reporting/Reports/02-Weekly/Retirement Income Tool Report/Retirement Income Tool Report-AIP.xlsm
+NOTE: Library siebconq assigned with PARQUET engine. Found 1 table(s) in 0.06 seconds.
+NOTE: DataFrame output.countretirementplanagg (0 rows, 4 columns) saved in 0.13 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ind_mrktng/Production/AIP Quarterly Process/PFA PHA Client Count V2/Data Input/countretirementplanagg.parquet'
+/cdnsasprd.sunlifecorp.com/ind_mrktng/File Transfer - For Ali/3P Data - New Methodology.xlsx
+NOTE: DataFrame actives.pfa_perpartyid_v2 (954 rows, 62 columns) saved in 0.20 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ind_mrktng/OPERATIONAL_DATA/DAILY_ACTIVES_W_FLAGS/pfa_perpartyid_v2.parquet'
+NOTE: DataFrame actives.pfa_perpartyid_v2 (2,526 rows, 62 columns) saved in 2.37 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ind_mrktng/OPERATIONAL_DATA/DAILY_ACTIVES_W_FLAGS/pfa_perpartyid_v2.parquet'
+NOTE: Library _input assigned with PARQUET engine. Found 11 table(s) in 0.56 seconds.
+NOTE: Library output assigned with PARQUET engine. Found 8 table(s) in 0.56 seconds.
+to_date('2023-07-01')
+to_date('2023-05-01')
+2023-05-31
+/cdnsasprd.sunlifecorp.com/ind_mrktng/File Transfer - For Ali/QC historical - New Methodology.xlsx
+/cdnsasprd.sunlifecorp.com/ind_mrktng/File Transfer - Financial Webinars/GRS FWWS for CXO.xlsx
+202307
+to_date('2023-07-01')
+NOTE: DataFrame _input.webinar_grs_hist (348 rows, 7 columns) saved in 0.20 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ind_mrktng/Production/AIP Quarterly Process/PFA PHA Client Count V2/Data Input/webinar_grs_hist.parquet'
+NOTE: DataFrame _input.webinar_grs_hist (348 rows, 7 columns) saved in 0.23 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ind_mrktng/Production/AIP Quarterly Process/PFA PHA Client Count V2/Data Input/webinar_grs_hist.parquet'
+NOTE: DataFrame output.results_landing_agg_prov (90 rows, 62 columns) saved in 0.15 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ind_mrktng/Production/AIP Quarterly Process/PFA PHA Client Count V2/Data Output/results_landing_agg_prov.parquet'
+NOTE: DataFrame output.results_landing_agg_prov_steven (4,680 rows, 10 columns) saved in 0.15 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ind_mrktng/Production/AIP Quarterly Process/PFA PHA Client Count V2/Data Output/results_landing_agg_prov_steven.parquet'
+NOTE: Library act assigned with PARQUET engine. Found 2 table(s) in 0.13 seconds.
+to_date('2023-05-01')
+to_date('2023-05-01')
+'202307'
+'202307'
+NOTE: Library act assigned with PARQUET engine. Found 2 table(s) in 0.16 seconds.
+NOTE: Library output assigned with PARQUET engine. Found 8 table(s) in 0.44 seconds.
+NOTE: DataFrame output.forfinance_agg (109 rows, 4 columns) saved in 0.13 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ind_mrktng/Production/AIP Quarterly Process/PFA PHA Client Count V2/Data Output/forfinance_agg.parquet'
+NOTE: DataFrame output.forfinance_agg (116 rows, 4 columns) saved in 0.72 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ind_mrktng/Production/AIP Quarterly Process/PFA PHA Client Count V2/Data Output/forfinance_agg.parquet'
+to_date('2023-05-01')
+NOTE: Library output assigned with PARQUET engine. Found 8 table(s) in 0.44 seconds.
+NOTE: DataFrame output.ccd_clientcount (104 rows, 85 columns) saved in 0.17 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ind_mrktng/Production/AIP Quarterly Process/PFA PHA Client Count V2/Data Output/ccd_clientcount.parquet'
+NOTE: Library output assigned with PARQUET engine. Found 8 table(s) in 0.47 seconds.
+NOTE: DataFrame output.allaip_rpt (296 rows, 3 columns) saved in 0.75 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ind_mrktng/Production/AIP Quarterly Process/PFA PHA Client Count V2/Data Output/allaip_rpt.parquet'
+NOTE: Library _input assigned with PARQUET engine. Found 3 table(s) in 0.19 seconds.
+NOTE: Library output2 assigned with PARQUET engine. Found 8 table(s) in 0.47 seconds.
+2023-07-01 to_date('2023-07-01')
+Frequency Summary Statistics
++-----+-----+-------+---------+-----------+
+|chann|COUNT|PERCENT|CUM_COUNT|CUM_PERCENT|
++-----+-----+-------+---------+-----------+
++-----+-----+-------+---------+-----------+
+
+NOTE: DataFrame output2.mthly_distr_finance_report (14 rows, 12 columns) saved in 0.14 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ind_mrktng/Production/AIP Quarterly Process/PFA PHA Client Count V2/Data Output/mthly_distr_finance_report.parquet'
+NOTE: DataFrame output2.mthly_distr_finance_report (15 rows, 12 columns) saved in 0.17 seconds to: 
+      '/cdnsasprd.sunlifecorp.com/ind_mrktng/Production/AIP Quarterly Process/PFA PHA Client Count V2/Data Output/mthly_distr_finance_report.parquet'
