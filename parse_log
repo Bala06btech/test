@@ -40,3 +40,50 @@ for dataframe_name, rows, columns, file_path in dataframe_matches:
 # Create a Pandas DataFrame
 table_matches_results_df = pd.DataFrame(table_matches_results, columns=['library_name', 'count'])
 dataframe_matches_results_df = pd.DataFrame(dataframe_matches_results, columns=['dataframe_name', 'rows', 'columns', 'file_path'])
+
+
+
+
+
+import re
+import boto3
+import pandas as pd
+from urllib.parse import urlparse
+
+# Initialize Boto3 clients
+s3_client = boto3.client('s3')
+cloudwatch_client = boto3.client('logs')
+
+# ... (other code)
+
+# Read log content from S3
+def read_log_from_s3(s3_uri):
+    parsed_uri = urlparse(s3_uri)
+    s3_bucket = parsed_uri.netloc
+    s3_key = parsed_uri.path.lstrip('/')
+    response = s3_client.get_object(Bucket=s3_bucket, Key=s3_key)
+    log_content = response['Body'].read().decode('utf-8')
+    return log_content
+
+# Read log content from CloudWatch Logs
+def read_log_from_cloudwatch(log_group, log_stream):
+    response = cloudwatch_client.get_log_events(
+        logGroupName=log_group,
+        logStreamName=log_stream
+    )
+    log_events = response.get('events', [])
+    log_content = '\n'.join(event['message'] for event in log_events)
+    return log_content
+
+# ... (other code)
+
+# Call the above functions to read log content
+s3_log_content = read_log_from_s3(s3_uri)
+cloudwatch_log_content = read_log_from_cloudwatch(log_group, log_stream)
+
+# Extract data from logs and create DataFrames
+# ... (your existing parsing and DataFrame creation code)
+
+# Compare the DataFrames
+# ... (code for comparing the DataFrames and identifying differences)
+
