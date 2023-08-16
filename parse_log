@@ -9,8 +9,9 @@ s3_client = boto3.client('s3')
 table_pattern = re.compile(r"Library (\w+) assigned with PARQUET engine\. Found (\d+) table\(s\) in (\d+\.\d+) seconds\.")
 dataframe_pattern = re.compile(r"DataFrame (\S+) \((\d+) rows, (\d+) columns\) saved in [\d.]+ seconds to:\s+'(.+)'")
 
+
 # Input S3 URI of the log file
-s3_uri = 's3://your-bucket-name/path/to/your/log-file.log'
+s3_uri = 's3://slf-aws-euc-cxo-vendor-dev/Misc/data/AWS-log-events-viewer-result.csv'
 
 # Parse the S3 URI to extract bucket and key
 parsed_uri = urlparse(s3_uri)
@@ -23,10 +24,19 @@ log_content = response['Body'].read().decode('utf-8')
 
 # Extract table count and library name
 table_matches = table_pattern.findall(log_content)
+table_matches_results = []
 for library_name, count, _ in table_matches:
-    print(f"{library_name} - {count}")
+    #print(f"{library_name} , {count}")
+    table_matches_results.append((library_name, count))
 
 # Extract DataFrame information
 dataframe_matches = dataframe_pattern.findall(log_content)
-for dataframe_name, rows, columns, _, file_path in dataframe_matches:
-    print(f"DataFrame {dataframe_name}: {rows} rows, {columns} columns saved to {file_path}")
+dataframe_matches_results = []
+for dataframe_name, rows, columns, file_path in dataframe_matches:
+    #print(f"{dataframe_name} , {rows} , {columns} , {file_path}")
+    dataframe_matches_results.append((dataframe_name, rows, columns, file_path))
+
+
+# Create a Pandas DataFrame
+table_matches_results_df = pd.DataFrame(table_matches_results, columns=['library_name', 'count'])
+dataframe_matches_results_df = pd.DataFrame(dataframe_matches_results, columns=['dataframe_name', 'rows', 'columns', 'file_path'])
