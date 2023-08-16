@@ -11,7 +11,7 @@ dataframe_pattern = re.compile(r"DataFrame (\S+) \((\d+) rows, (\d+) columns\) s
 
 
 # Input S3 URI of the log file
-s3_uri = 's3://slf-aws-euc-cxo-vendor-dev/Misc/data/AWS-log-events-viewer-result.csv'
+s3_uri = 'bucket'
 
 # Parse the S3 URI to extract bucket and key
 parsed_uri = urlparse(s3_uri)
