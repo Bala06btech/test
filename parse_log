@@ -87,3 +87,68 @@ cloudwatch_log_content = read_log_from_cloudwatch(log_group, log_stream)
 # Compare the DataFrames
 # ... (code for comparing the DataFrames and identifying differences)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import re
+import boto3
+import pandas as pd
+from urllib.parse import urlparse
+
+# Initialize Boto3 S3 client
+s3_client = boto3.client('s3')
+path_prefix_to_remove = '/cdnsasprd.sunlifecorp.com/'
+
+# Input S3 URI of the log file
+s3_uri = '<bucket>'
+
+# Regular expression patterns
+table_pattern = re.compile(r"Library (\w+) assigned with PARQUET engine\. Found (\d+) table\(s\) in (\d+\.\d+) seconds\.")
+dataframe_pattern = re.compile(r"DataFrame (\S+) \((\d+) rows, (\d+) columns\) saved in [\d.]+ seconds to:\s+'(.+)'")
+
+def extract_log_content(s3_uri):
+    parsed_uri = urlparse(s3_uri)
+    s3_bucket = parsed_uri.netloc
+    s3_key = parsed_uri.path.lstrip('/')
+    response = s3_client.get_object(Bucket=s3_bucket, Key=s3_key)
+    return response['Body'].read().decode('utf-8')
+
+def extract_table_data(log_content):
+    table_matches = table_pattern.findall(log_content)
+    table_data = [(library, count) for library, count, _ in table_matches]
+    return table_data
+
+def extract_dataframe_data(log_content, path_prefix_to_remove):
+    dataframe_matches = dataframe_pattern.findall(log_content)
+    dataframe_data = [(name, rows, columns, path.replace(path_prefix_to_remove, '')) for name, rows, columns, path in dataframe_matches]
+    return dataframe_data
+
+# Extract log content
+log_content = extract_log_content(s3_uri)
+
+# Extract table and DataFrame data
+table_data = extract_table_data(log_content)
+dataframe_data = extract_dataframe_data(log_content)
+
+# Create Pandas DataFrames
+table_df = pd.DataFrame(table_data, columns=['library_name', 'count'])
+dataframe_df = pd.DataFrame(dataframe_data, columns=['dataframe_name', 'rows', 'columns', 'file_path'])
+
+# Perform comparisons or any further analysis you need
+# ... (code for comparisons or analysis)
