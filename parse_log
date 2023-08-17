@@ -1,63 +1,56 @@
 import re
+import pandas as pd
 import boto3
 from urllib.parse import urlparse
- 
-# Input S3 URI of the log file
-WWD_URI = ‘S3_location’
+
+# AWS S3 URIs
+WWD_URI = 'S3_location'
 WWD_path_prefix_to_remove = 'some_string'
- 
-Glue_URI = ‘S3_location_2’
+
+Glue_URI = 'S3_location_2'
 Glue_path_prefix_to_remove = 'some_string'
- 
+
 s3_client = boto3.client('s3')
- 
-# Regular expression patterns to extract metadata
+
 table_pattern = re.compile(r"Library (\w+) assigned with PARQUET engine\. Found (\d+) table\(s\) in (\d+\.\d+) seconds\.")
 dataframe_pattern = re.compile(r"DataFrame (\S+) \((\d+) rows, (\d+) columns\) saved in [\d.]+ seconds to:\s+'(.+)'")
- 
+
 def read_log_from_s3(s3_uri):
-    parsed_uri = urlparse(s3_uri)
-    s3_bucket = parsed_uri.netloc
-    s3_key = parsed_uri.path.lstrip('/')
-    response = s3_client.get_object(Bucket=s3_bucket, Key=s3_key)
-    log_content = response['Body'].read().decode('utf-8')
-    return log_content
- 
-def get_metadata_df(source, log_content,path_prefix_to_remove):
-    # Extract table count and library name
-    table_matches = table_pattern.findall(log_content)
-    table_matches_results = []
-    for library_name, count, _ in table_matches:
-        #print(f"{library_name} , {count}")
-        table_matches_results.append((library_name, count))
- 
-    # Extract DataFrame information
-    dataframe_matches = dataframe_pattern.findall(log_content)
-    dataframe_matches_results = []
-    for dataframe_name, rows, columns, file_path in dataframe_matches:
-        #print(f"{dataframe_name} , {rows} , {columns} , {file_path}")
-        dataframe_matches_results.append((dataframe_name, rows, columns, file_path.replace(path_prefix_to_remove, '')))
- 
-    # Create a Pandas DataFrame
-    table_matches_results_df = pd.DataFrame(table_matches_results, columns=['library_name', 'count'])
-    table_matches_results_df = table_matches_results_df.rename(columns={c: c+f'_{source}' for c in table_matches_results_df.columns if c not in ['library_name']})
-   
-    dataframe_matches_results_df = pd.DataFrame(dataframe_matches_results, columns=['dataframe_name', 'rows', 'columns', 'file_path'])
-    dataframe_matches_results_df = dataframe_matches_results_df.rename(columns={c: c+f'_{source}' for c in dataframe_matches_results_df.columns if c not in ['dataframe_name']})
-    return table_matches_results_df, dataframe_matches_results_df
- 
-# Read log content from S3 for WWD
+    parsed_uri = urlparse(s3_uri)
+    s3_bucket = parsed_uri.netloc
+    s3_key = parsed_uri.path.lstrip('/')
+    response = s3_client.get_object(Bucket=s3_bucket, Key=s3_key)
+    log_content = response['Body'].read().decode('utf-8')
+    return log_content
+
+def extract_matches(log_content, pattern):
+    return pattern.findall(log_content)
+
+def get_metadata_df(source, log_content, path_prefix_to_remove):
+    table_matches = extract_matches(log_content, table_pattern)
+    table_data = [(library_name, count) for library_name, count, _ in table_matches]
+
+    dataframe_matches = extract_matches(log_content, dataframe_pattern)
+    dataframe_data = [(dataframe_name, rows, columns, file_path.replace(path_prefix_to_remove, '')) for dataframe_name, rows, columns, file_path in dataframe_matches]
+
+    table_df = pd.DataFrame(table_data, columns=['library_name', 'count']).add_suffix(f'_{source}')
+    dataframe_df = pd.DataFrame(dataframe_data, columns=['dataframe_name', 'rows', 'columns', 'file_path']).add_suffix(f'_{source}')
+
+    return table_df, dataframe_df
+
+# Read log content and extract metadata for WWD
 WWD_log_content = read_log_from_s3(WWD_URI)
-WWD_table_matches_results_df , WWD_dataframe_matches_results_df = get_metadata_df('WWD', WWD_log_content, WWD_path_prefix_to_remove)
- 
-# Read log content from S3 for WWD
+WWD_table_df, WWD_dataframe_df = get_metadata_df('WWD', WWD_log_content, WWD_path_prefix_to_remove)
+
+# Read log content and extract metadata for Glue
 Glue_log_content = read_log_from_s3(Glue_URI)
-Glue_table_matches_results_df , Glue_dataframe_matches_results_df = get_metadata_df('Glue', Glue_log_content, Glue_path_prefix_to_remove)
- 
-table_mergedStuff = pd.merge(WWD_table_matches_results_df, Glue_table_matches_results_df, on=['library_name'], how='left')
-table_mergedStuff.to_csv('s3://table_comparion.csv', index=False)
- 
-dataframe_mergedStuff = pd.merge(WWD_dataframe_matches_results_df, Glue_dataframe_matches_results_df, on=['dataframe_name'], how='left')
-dataframe_mergedStuff.to_csv('s3://Files_comparion.csv', index=False)
- 
+Glue_table_df, Glue_dataframe_df = get_metadata_df('Glue', Glue_log_content, Glue_path_prefix_to_remove)
+
+# Merge and write to S3
+table_merged_df = pd.merge(WWD_table_df, Glue_table_df, on=['library_name_WWD'], how='left')
+table_merged_df.to_csv('s3://table_comparison.csv', index=False)
+
+dataframe_merged_df = pd.merge(WWD_dataframe_df, Glue_dataframe_df, on=['dataframe_name_WWD'], how='left')
+dataframe_merged_df.to_csv('s3://files_comparison.csv', index=False)
+
 print("Done!")
