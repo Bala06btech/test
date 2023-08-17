@@ -88,10 +88,10 @@ def extract_matches(log_content, pattern):
 
 def get_metadata_df(source, log_content, path_prefix_to_remove):
     table_matches = extract_matches(log_content, table_pattern)
-    table_data = [(f'{library_name}_{source}', count) for library_name, count, _ in table_matches]
+    table_data = [(f'{library_name}_{source}_{i}', count) for i, (library_name, count, _) in enumerate(table_matches, start=1)]
 
     dataframe_matches = extract_matches(log_content, dataframe_pattern)
-    dataframe_data = [(f'{dataframe_name}_{source}', rows, columns, file_path.replace(path_prefix_to_remove, '')) for dataframe_name, rows, columns, file_path in dataframe_matches]
+    dataframe_data = [(f'{dataframe_name}_{source}_{i}', rows, columns, file_path.replace(path_prefix_to_remove, '')) for i, (dataframe_name, rows, columns, file_path) in enumerate(dataframe_matches, start=1)]
 
     table_df = pd.DataFrame(table_data, columns=[f'library_name_{source}', f'count_{source}'])
     dataframe_df = pd.DataFrame(dataframe_data, columns=[f'dataframe_name_{source}', f'rows_{source}', f'columns_{source}', f'file_path_{source}'])
