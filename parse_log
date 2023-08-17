@@ -58,7 +58,6 @@ print("Done!")
 
 
 ######################### adding count to avoid dups 
-
 import re
 import pandas as pd
 import boto3
@@ -94,8 +93,8 @@ def get_metadata_df(source, log_content, path_prefix_to_remove):
     dataframe_matches = extract_matches(log_content, dataframe_pattern)
     dataframe_data = [(f'{dataframe_name}_{source}', rows, columns, file_path.replace(path_prefix_to_remove, '')) for dataframe_name, rows, columns, file_path in dataframe_matches]
 
-    table_df = pd.DataFrame(table_data, columns=['library_name', 'count'])
-    dataframe_df = pd.DataFrame(dataframe_data, columns=['dataframe_name', 'rows', 'columns', 'file_path'])
+    table_df = pd.DataFrame(table_data, columns=[f'library_name_{source}', f'count_{source}'])
+    dataframe_df = pd.DataFrame(dataframe_data, columns=[f'dataframe_name_{source}', f'rows_{source}', f'columns_{source}', f'file_path_{source}'])
 
     return table_df, dataframe_df
 
@@ -108,11 +107,10 @@ Glue_log_content = read_log_from_s3(Glue_URI)
 Glue_table_df, Glue_dataframe_df = get_metadata_df('Glue', Glue_log_content, Glue_path_prefix_to_remove)
 
 # Merge and write to S3
-table_merged_df = pd.merge(WWD_table_df, Glue_table_df, left_on=['library_name'], right_on=['library_name'], how='left')
+table_merged_df = pd.merge(WWD_table_df, Glue_table_df, left_on=[f'library_name_WWD'], right_on=[f'library_name_Glue'], how='left')
 table_merged_df.to_csv('s3://table_comparison.csv', index=False)
 
-dataframe_merged_df = pd.merge(WWD_dataframe_df, Glue_dataframe_df, left_on=['dataframe_name'], right_on=['dataframe_name'], how='left')
+dataframe_merged_df = pd.merge(WWD_dataframe_df, Glue_dataframe_df, left_on=[f'dataframe_name_WWD'], right_on=[f'dataframe_name_Glue'], how='left')
 dataframe_merged_df.to_csv('s3://files_comparison.csv', index=False)
 
 print("Done!")
-
