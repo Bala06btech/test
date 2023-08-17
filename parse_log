@@ -1,154 +1,63 @@
 import re
 import boto3
 from urllib.parse import urlparse
-
-# Initialize Boto3 S3 client
+ 
+# Input S3 URI of the log file
+WWD_URI = ‘S3_location’
+WWD_path_prefix_to_remove = 'some_string'
+ 
+Glue_URI = ‘S3_location_2’
+Glue_path_prefix_to_remove = 'some_string'
+ 
 s3_client = boto3.client('s3')
-
+ 
 # Regular expression patterns to extract metadata
 table_pattern = re.compile(r"Library (\w+) assigned with PARQUET engine\. Found (\d+) table\(s\) in (\d+\.\d+) seconds\.")
 dataframe_pattern = re.compile(r"DataFrame (\S+) \((\d+) rows, (\d+) columns\) saved in [\d.]+ seconds to:\s+'(.+)'")
-
-
-# Input S3 URI of the log file
-s3_uri = 'bucket'
-
-# Parse the S3 URI to extract bucket and key
-parsed_uri = urlparse(s3_uri)
-s3_bucket = parsed_uri.netloc
-s3_key = parsed_uri.path.lstrip('/')
-
-# Read log content from S3
-response = s3_client.get_object(Bucket=s3_bucket, Key=s3_key)
-log_content = response['Body'].read().decode('utf-8')
-
-# Extract table count and library name
-table_matches = table_pattern.findall(log_content)
-table_matches_results = []
-for library_name, count, _ in table_matches:
-    #print(f"{library_name} , {count}")
-    table_matches_results.append((library_name, count))
-
-# Extract DataFrame information
-dataframe_matches = dataframe_pattern.findall(log_content)
-dataframe_matches_results = []
-for dataframe_name, rows, columns, file_path in dataframe_matches:
-    #print(f"{dataframe_name} , {rows} , {columns} , {file_path}")
-    dataframe_matches_results.append((dataframe_name, rows, columns, file_path))
-
-
-# Create a Pandas DataFrame
-table_matches_results_df = pd.DataFrame(table_matches_results, columns=['library_name', 'count'])
-dataframe_matches_results_df = pd.DataFrame(dataframe_matches_results, columns=['dataframe_name', 'rows', 'columns', 'file_path'])
-
-
-
-
-
-import re
-import boto3
-import pandas as pd
-from urllib.parse import urlparse
-
-# Initialize Boto3 clients
-s3_client = boto3.client('s3')
-cloudwatch_client = boto3.client('logs')
-
-# ... (other code)
-
-# Read log content from S3
+ 
 def read_log_from_s3(s3_uri):
-    parsed_uri = urlparse(s3_uri)
-    s3_bucket = parsed_uri.netloc
-    s3_key = parsed_uri.path.lstrip('/')
-    response = s3_client.get_object(Bucket=s3_bucket, Key=s3_key)
-    log_content = response['Body'].read().decode('utf-8')
-    return log_content
-
-# Read log content from CloudWatch Logs
-def read_log_from_cloudwatch(log_group, log_stream):
-    response = cloudwatch_client.get_log_events(
-        logGroupName=log_group,
-        logStreamName=log_stream
-    )
-    log_events = response.get('events', [])
-    log_content = '\n'.join(event['message'] for event in log_events)
-    return log_content
-
-# ... (other code)
-
-# Call the above functions to read log content
-s3_log_content = read_log_from_s3(s3_uri)
-cloudwatch_log_content = read_log_from_cloudwatch(log_group, log_stream)
-
-# Extract data from logs and create DataFrames
-# ... (your existing parsing and DataFrame creation code)
-
-# Compare the DataFrames
-# ... (code for comparing the DataFrames and identifying differences)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-import re
-import boto3
-import pandas as pd
-from urllib.parse import urlparse
-
-# Initialize Boto3 S3 client
-s3_client = boto3.client('s3')
-path_prefix_to_remove = '/cdnsasprd.sunlifecorp.com/'
-
-# Input S3 URI of the log file
-s3_uri = '<bucket>'
-
-# Regular expression patterns
-table_pattern = re.compile(r"Library (\w+) assigned with PARQUET engine\. Found (\d+) table\(s\) in (\d+\.\d+) seconds\.")
-dataframe_pattern = re.compile(r"DataFrame (\S+) \((\d+) rows, (\d+) columns\) saved in [\d.]+ seconds to:\s+'(.+)'")
-
-def extract_log_content(s3_uri):
-    parsed_uri = urlparse(s3_uri)
-    s3_bucket = parsed_uri.netloc
-    s3_key = parsed_uri.path.lstrip('/')
-    response = s3_client.get_object(Bucket=s3_bucket, Key=s3_key)
-    return response['Body'].read().decode('utf-8')
-
-def extract_table_data(log_content):
-    table_matches = table_pattern.findall(log_content)
-    table_data = [(library, count) for library, count, _ in table_matches]
-    return table_data
-
-def extract_dataframe_data(log_content, path_prefix_to_remove):
-    dataframe_matches = dataframe_pattern.findall(log_content)
-    dataframe_data = [(name, rows, columns, path.replace(path_prefix_to_remove, '')) for name, rows, columns, path in dataframe_matches]
-    return dataframe_data
-
-# Extract log content
-log_content = extract_log_content(s3_uri)
-
-# Extract table and DataFrame data
-table_data = extract_table_data(log_content)
-dataframe_data = extract_dataframe_data(log_content)
-
-# Create Pandas DataFrames
-table_df = pd.DataFrame(table_data, columns=['library_name', 'count'])
-dataframe_df = pd.DataFrame(dataframe_data, columns=['dataframe_name', 'rows', 'columns', 'file_path'])
-
-# Perform comparisons or any further analysis you need
-# ... (code for comparisons or analysis)
+    parsed_uri = urlparse(s3_uri)
+    s3_bucket = parsed_uri.netloc
+    s3_key = parsed_uri.path.lstrip('/')
+    response = s3_client.get_object(Bucket=s3_bucket, Key=s3_key)
+    log_content = response['Body'].read().decode('utf-8')
+    return log_content
+ 
+def get_metadata_df(source, log_content,path_prefix_to_remove):
+    # Extract table count and library name
+    table_matches = table_pattern.findall(log_content)
+    table_matches_results = []
+    for library_name, count, _ in table_matches:
+        #print(f"{library_name} , {count}")
+        table_matches_results.append((library_name, count))
+ 
+    # Extract DataFrame information
+    dataframe_matches = dataframe_pattern.findall(log_content)
+    dataframe_matches_results = []
+    for dataframe_name, rows, columns, file_path in dataframe_matches:
+        #print(f"{dataframe_name} , {rows} , {columns} , {file_path}")
+        dataframe_matches_results.append((dataframe_name, rows, columns, file_path.replace(path_prefix_to_remove, '')))
+ 
+    # Create a Pandas DataFrame
+    table_matches_results_df = pd.DataFrame(table_matches_results, columns=['library_name', 'count'])
+    table_matches_results_df = table_matches_results_df.rename(columns={c: c+f'_{source}' for c in table_matches_results_df.columns if c not in ['library_name']})
+   
+    dataframe_matches_results_df = pd.DataFrame(dataframe_matches_results, columns=['dataframe_name', 'rows', 'columns', 'file_path'])
+    dataframe_matches_results_df = dataframe_matches_results_df.rename(columns={c: c+f'_{source}' for c in dataframe_matches_results_df.columns if c not in ['dataframe_name']})
+    return table_matches_results_df, dataframe_matches_results_df
+ 
+# Read log content from S3 for WWD
+WWD_log_content = read_log_from_s3(WWD_URI)
+WWD_table_matches_results_df , WWD_dataframe_matches_results_df = get_metadata_df('WWD', WWD_log_content, WWD_path_prefix_to_remove)
+ 
+# Read log content from S3 for WWD
+Glue_log_content = read_log_from_s3(Glue_URI)
+Glue_table_matches_results_df , Glue_dataframe_matches_results_df = get_metadata_df('Glue', Glue_log_content, Glue_path_prefix_to_remove)
+ 
+table_mergedStuff = pd.merge(WWD_table_matches_results_df, Glue_table_matches_results_df, on=['library_name'], how='left')
+table_mergedStuff.to_csv('s3://table_comparion.csv', index=False)
+ 
+dataframe_mergedStuff = pd.merge(WWD_dataframe_matches_results_df, Glue_dataframe_matches_results_df, on=['dataframe_name'], how='left')
+dataframe_mergedStuff.to_csv('s3://Files_comparion.csv', index=False)
+ 
+print("Done!")
