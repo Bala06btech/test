@@ -108,6 +108,7 @@ Glue_table_df, Glue_dataframe_df = get_metadata_df('Glue', Glue_log_content, Glu
 
 # Merge and write to S3
 table_merged_df = pd.merge(WWD_table_df, Glue_table_df, left_on=[f'library_name_WWD'], right_on=[f'library_name_Glue'], how='left')
+table_merged_df['count_diff'] = table_merged_df.apply(lambda row: 'Yes' if row['count_WWD'] != row['count_Glue'] else 'No', axis=1)
 table_merged_df.to_csv('s3://table_comparison.csv', index=False)
 
 dataframe_merged_df = pd.merge(WWD_dataframe_df, Glue_dataframe_df, left_on=[f'dataframe_name_WWD'], right_on=[f'dataframe_name_Glue'], how='left')
