@@ -112,6 +112,12 @@ table_merged_df['count_diff'] = table_merged_df.apply(lambda row: 'Yes' if row['
 table_merged_df.to_csv('s3://table_comparison.csv', index=False)
 
 dataframe_merged_df = pd.merge(WWD_dataframe_df, Glue_dataframe_df, left_on=[f'dataframe_name_WWD'], right_on=[f'dataframe_name_Glue'], how='left')
+
+# Merge and compare rows_WWD, columns_WWD, file_path_WWD, and file_path_Glue columns
+dataframe_merged_df['rows_diff'] = dataframe_merged_df.apply(lambda row: 'Yes' if row['rows_WWD'] != row['rows_Glue'] else 'No', axis=1)
+dataframe_merged_df['columns_diff'] = dataframe_merged_df.apply(lambda row: 'Yes' if row['columns_WWD'] != row['columns_Glue'] else 'No', axis=1)
+dataframe_merged_df['file_path_diff'] = dataframe_merged_df.apply(lambda row: 'Yes' if row['file_path_WWD'] != row['file_path_Glue'] else 'No', axis=1)
+
 dataframe_merged_df.to_csv('s3://files_comparison.csv', index=False)
 
 print("Done!")
