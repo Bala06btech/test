@@ -54,3 +54,65 @@ dataframe_merged_df = pd.merge(WWD_dataframe_df, Glue_dataframe_df, left_on=['da
 dataframe_merged_df.to_csv('s3://files_comparison.csv', index=False)
 
 print("Done!")
+
+
+
+######################### adding count to avoid dups 
+
+import re
+import pandas as pd
+import boto3
+from urllib.parse import urlparse
+
+# AWS S3 URIs
+WWD_URI = 'S3_location'
+WWD_path_prefix_to_remove = 'some_string'
+
+Glue_URI = 'S3_location_2'
+Glue_path_prefix_to_remove = 'some_string'
+
+s3_client = boto3.client('s3')
+
+table_pattern = re.compile(r"Library (\w+) assigned with PARQUET engine\. Found (\d+) table\(s\) in (\d+\.\d+) seconds\.")
+dataframe_pattern = re.compile(r"DataFrame (\S+) \((\d+) rows, (\d+) columns\) saved in [\d.]+ seconds to:\s+'(.+)'")
+
+def read_log_from_s3(s3_uri):
+    parsed_uri = urlparse(s3_uri)
+    s3_bucket = parsed_uri.netloc
+    s3_key = parsed_uri.path.lstrip('/')
+    response = s3_client.get_object(Bucket=s3_bucket, Key=s3_key)
+    log_content = response['Body'].read().decode('utf-8')
+    return log_content
+
+def extract_matches(log_content, pattern):
+    return pattern.findall(log_content)
+
+def get_metadata_df(source, log_content, path_prefix_to_remove):
+    table_matches = extract_matches(log_content, table_pattern)
+    table_data = [(f'{library_name}_{source}', count) for library_name, count, _ in table_matches]
+
+    dataframe_matches = extract_matches(log_content, dataframe_pattern)
+    dataframe_data = [(f'{dataframe_name}_{source}', rows, columns, file_path.replace(path_prefix_to_remove, '')) for dataframe_name, rows, columns, file_path in dataframe_matches]
+
+    table_df = pd.DataFrame(table_data, columns=['library_name', 'count'])
+    dataframe_df = pd.DataFrame(dataframe_data, columns=['dataframe_name', 'rows', 'columns', 'file_path'])
+
+    return table_df, dataframe_df
+
+# Read log content and extract metadata for WWD
+WWD_log_content = read_log_from_s3(WWD_URI)
+WWD_table_df, WWD_dataframe_df = get_metadata_df('WWD', WWD_log_content, WWD_path_prefix_to_remove)
+
+# Read log content and extract metadata for Glue
+Glue_log_content = read_log_from_s3(Glue_URI)
+Glue_table_df, Glue_dataframe_df = get_metadata_df('Glue', Glue_log_content, Glue_path_prefix_to_remove)
+
+# Merge and write to S3
+table_merged_df = pd.merge(WWD_table_df, Glue_table_df, left_on=['library_name'], right_on=['library_name'], how='left')
+table_merged_df.to_csv('s3://table_comparison.csv', index=False)
+
+dataframe_merged_df = pd.merge(WWD_dataframe_df, Glue_dataframe_df, left_on=['dataframe_name'], right_on=['dataframe_name'], how='left')
+dataframe_merged_df.to_csv('s3://files_comparison.csv', index=False)
+
+print("Done!")
+
