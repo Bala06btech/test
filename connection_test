@@ -1,0 +1,23 @@
+import boto3
+import json
+
+# Initialize the Glue client
+glue_client = boto3.client('glue')
+
+# Load connection names from the JSON file
+with open('connections.json') as json_file:
+    connections_data = json.load(json_file)
+
+# Extract the connection names from the JSON data
+connection_names = connections_data.get('conn_name', [])
+
+# Loop through the connection names and test validity
+for connection_name in connection_names:
+    try:
+        # Test the connection validity
+        glue_client.test_connection(Name=connection_name)
+        print(f"Connection '{connection_name}' is valid.")
+    except glue_client.exceptions.InvalidInputException as e:
+        print(f"Connection '{connection_name}' is invalid: {e}")
+    except Exception as e:
+        print(f"An error occurred while testing connection '{connection_name}': {e}")
