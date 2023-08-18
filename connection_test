@@ -3,9 +3,10 @@ import json
 
 # Initialize Spark session
 spark = SparkSession.builder.appName("JDBCConnectionTest").getOrCreate()
+json_file_path = 's3://path/1.json'
 
 # Load connection configurations from the JSON file
-with open('connections.json') as json_file:
+with open(json_file_path) as json_file:
     connections_data = json.load(json_file)
 
 # Loop through each database.table object and test JDBC connections using Spark
@@ -13,31 +14,15 @@ for table_key, table_info in connections_data.items():
     if table_key != "env":
         try:
             connection_name = table_info['conn_name']
+            database_name = table_info['database_name']
+            table_name = table_info['dbtable']
 
             # Get connection details from Glue
             glue_connection = glue_client.get_connection(Name=connection_name)['Connection']
 
             # Extract the JDBC URL from the Glue connection
             jdbc_url = glue_connection['ConnectionProperties']['JDBC_CONNECTION_URL']
-
-            # Set up connection properties
-            connection_properties = {
-                "user": "username",  # Replace with appropriate credentials
-                "password": "password",
-                "driver": "your.jdbc.DriverClass"
-            }
-
-            # Read a sample table using the JDBC connection
-            table_df = spark.read \
-                .format("jdbc") \
-                .option("url", jdbc_url) \
-                .option("dbtable", "sample_table") \
-                .options(**connection_properties) \
-                .load()
-
-            # Print a row from the DataFrame to confirm successful connection
-            print(table_df.first())
-
-            print(f"Connection '{connection_name}' for {table_key} is successful.")
-        except Exception as e:
-            print(f"Connection '{connection_name}' for {table_key} failed: {e}")
+            jdbc_url = glue_connection['ConnectionProperties']['Username']
+            jdbc_url = glue_connection['ConnectionProperties']['Password']
+                                                               
+            print(connection_name, database_name, table_name, JDBC_CONNECTION_URL, username, password)
