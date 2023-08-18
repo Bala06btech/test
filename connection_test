@@ -1,9 +1,13 @@
 from pyspark.sql import SparkSession
 import json
+import boto3
 
 # Initialize Spark session
 spark = SparkSession.builder.appName("JDBCConnectionTest").getOrCreate()
 json_file_path = 's3://path/1.json'
+
+# Initialize Glue client
+glue_client = boto3.client('glue')
 
 # Load connection configurations from the JSON file
 with open(json_file_path) as json_file:
@@ -22,7 +26,28 @@ for table_key, table_info in connections_data.items():
 
             # Extract the JDBC URL from the Glue connection
             jdbc_url = glue_connection['ConnectionProperties']['JDBC_CONNECTION_URL']
-            jdbc_url = glue_connection['ConnectionProperties']['Username']
-            jdbc_url = glue_connection['ConnectionProperties']['Password']
+            username = glue_connection['ConnectionProperties']['Username']
+            password = glue_connection['ConnectionProperties']['Password']
                                                                
-            print(connection_name, database_name, table_name, JDBC_CONNECTION_URL, username, password)
+            print(connection_name, database_name, table_name, jdbc_url, username, password)
+
+            # Use spark.read to read data from the JDBC connection
+            try:
+                jdbc_df = spark.read \
+                    .format("jdbc") \
+                    .option("url", jdbc_url) \
+                    .option("dbtable", table_name) \
+                    .option("user", username) \
+                    .option("password", password) \
+                    .load()
+
+                # Process the DataFrame as needed
+                jdbc_df.show()
+            except Exception as e:
+                print(f"An error occurred while reading data from JDBC: {e}")
+        except KeyError as e:
+            print(f"KeyError occurred: {e}")
+        except glue_client.exceptions.EntityNotFoundException as e:
+            print(f"EntityNotFoundException occurred: {e}")
+        except Exception as e:
+            print(f"An error occurred: {e}")
