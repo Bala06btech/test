@@ -103,18 +103,18 @@ for table_key, table_info in connections_data.items():
                 has_data = not jdbc_df.isEmpty()
 
                 # Append connection information to the list
-                connection_info.append((connection_name, table_name, "Yes", "Yes" if has_data else "No"))
+                connection_info.append((connection_name, table_key, "Yes", "Yes" if has_data else "No"))
             except Exception as e:
                 # Append connection information to the list indicating an error
-                connection_info.append((connection_name, table_name, "No", "N/A"))
+                connection_info.append((connection_name, table_key, "No", "N/A"))
         except KeyError as e:
             # Append connection information to the list indicating a KeyError
-            connection_info.append((connection_name, table_name, "N/A", "N/A"))
+            connection_info.append((connection_name, table_key, "N/A", "N/A"))
         except glue_client.exceptions.EntityNotFoundException as e:
             # Append connection information to the list indicating the connection doesn't exist
-            connection_info.append((connection_name, table_name, "No", "N/A"))
+            connection_info.append((connection_name, table_key, "No", "N/A"))
 
 # Print the connection information in a tabular format
 print("Connection\tHas Table\tHas Data")
-for connection_name, table_name, has_table, has_data in connection_info:
+for connection_name, table_key, has_table, has_data in connection_info:
     print(f"{connection_name}\t{has_table}\t\t{has_data}")
