@@ -51,3 +51,70 @@ for table_key, table_info in connections_data.items():
             print(f"EntityNotFoundException occurred: {e}")
         except Exception as e:
             print(f"An error occurred: {e}")
+
+
+
+
+from pyspark.sql import SparkSession
+import json
+import boto3
+
+# Initialize Spark session
+spark = SparkSession.builder.appName("JDBCConnectionTest").getOrCreate()
+json_file_path = 's3://path/1.json'
+
+# Initialize Glue client
+glue_client = boto3.client('glue')
+
+# Load connection configurations from the JSON file
+with open(json_file_path) as json_file:
+    connections_data = json.load(json_file)
+
+# List to store connection information
+connection_info = []
+
+# Loop through each database.table object and test JDBC connections using Spark
+for table_key, table_info in connections_data.items():
+    if table_key != "env":
+        try:
+            connection_name = table_info['conn_name']
+            database_name = table_info['database_name']
+            table_name = table_info['dbtable']
+
+            # Get connection details from Glue
+            glue_connection = glue_client.get_connection(Name=connection_name)['Connection']
+
+            # Extract the JDBC URL from the Glue connection
+            jdbc_url = glue_connection['ConnectionProperties']['JDBC_CONNECTION_URL']
+            username = glue_connection['ConnectionProperties']['Username']
+            password = glue_connection['ConnectionProperties']['Password']
+
+            # Use spark.read to check if the table exists and has data
+            try:
+                jdbc_df = spark.read \
+                    .format("jdbc") \
+                    .option("url", jdbc_url) \
+                    .option("dbtable", table_name) \
+                    .option("user", username) \
+                    .option("password", password) \
+                    .load()
+
+                # Check if jdbc_df has data
+                has_data = not jdbc_df.isEmpty()
+
+                # Append connection information to the list
+                connection_info.append((connection_name, table_name, "Yes", "Yes" if has_data else "No"))
+            except Exception as e:
+                # Append connection information to the list indicating an error
+                connection_info.append((connection_name, table_name, "No", "N/A"))
+        except KeyError as e:
+            # Append connection information to the list indicating a KeyError
+            connection_info.append((connection_name, table_name, "N/A", "N/A"))
+        except glue_client.exceptions.EntityNotFoundException as e:
+            # Append connection information to the list indicating the connection doesn't exist
+            connection_info.append((connection_name, table_name, "No", "N/A"))
+
+# Print the connection information in a tabular format
+print("Connection\tHas Table\tHas Data")
+for connection_name, table_name, has_table, has_data in connection_info:
+    print(f"{connection_name}\t{has_table}\t\t{has_data}")
