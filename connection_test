@@ -73,8 +73,6 @@ with open(json_file_path) as json_file:
 # List to store connection information
 connection_info = []
 
-# ...
-
 # Loop through each database.table object and test JDBC connections using Spark
 for table_key, table_info in connections_data.items():
     if table_key != "env":
@@ -112,19 +110,24 @@ for table_key, table_info in connections_data.items():
                     has_data = not jdbc_df.isEmpty()
 
                     # Append connection information to the list
-                    connection_info.append((connection_name, connection_status, table_key, "Yes" if has_table else "N/A", "Yes" if has_data else "N/A"))
+                    connection_info.append((connection_name, connection_status, table_key, has_table, has_data))
                 except Exception as e:
                     # Append connection information to the list indicating an error
                     connection_info.append((connection_name, connection_status, table_key, "No", "No"))
 
             except Exception as e:
                 # Append connection information to the list indicating a connection issue
-                connection_info.append((connection_name, connection_status, table_key, "N/A", "N/A"))
+                connection_info.append((connection_name, "N/A", table_key, "N/A", "N/A"))
         except KeyError as e:
             # Append connection information to the list indicating a KeyError
             connection_info.append((connection_name, "N/A", table_key, "N/A", "N/A"))
 
-# Print the connection information in a tabular format
-print("Connection\tConnection Status\tTable Key\tHas Table\tHas Data")
-for connection_name, connection_status, table_key, has_table, has_data in connection_info:
-    print(f"{connection_name}\t{connection_status}\t\t{table_key}\t{has_table}\t\t{has_data}")
+# Create a DataFrame from the connection information
+columns = ["Connection", "Connection Status", "Table Key", "Has Table", "Has Data"]
+connection_df = spark.createDataFrame(connection_info, columns)
+
+# Write the DataFrame to a CSV file
+csv_output_path = 's3://path/connection_info.csv'
+connection_df.coalesce(1).write.option("header", "true").csv(csv_output_path)
+
+print("Connection information written to CSV:", csv_output_path)
