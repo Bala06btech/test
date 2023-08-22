@@ -1,0 +1,17 @@
+import pandas as pd
+
+# Create a DataFrame
+data = {'Name': ['Alice', 'Bob', 'Charlie'],
+        'Age': [25, 30, 28]}
+
+df = pd.DataFrame(data)
+
+# Write to Excel
+excel_file_path = 'output.xlsx'
+sheet_name = 'Sheet1'
+start_row = 1
+start_col = 1
+
+df.to_excel(excel_file_path, sheet_name=sheet_name, startrow=start_row, startcol=start_col, index=False)
+
+print("DataFrame written to Excel successfully.")
