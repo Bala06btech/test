@@ -9,6 +9,13 @@ done
 
 @echo off
 
+setlocal enabledelayedexpansion
+set "count=0"
+
 for /f "delims=" %%A in ('aws glue list-jobs --output text --query "JobNames[]"') do (
+    if !count! gtr 0 (
+        echo.
+    )
     echo %%A
+    set /a "count+=1"
 )
