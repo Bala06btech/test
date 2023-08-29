@@ -1,3 +1,7 @@
+dataframe_pattern = re.compile(r"DataFrame (\S+) \((\d+(?:,\d+)*) rows, (\d+) columns\) saved in [\d.]+ seconds to:\s+'(.+)'")
+
+
+
 import re
 import pandas as pd
 import boto3
