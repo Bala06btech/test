@@ -8,13 +8,11 @@ for job_name in $(aws glue list-jobs --output text --query 'JobNames'); do
 done
 
 
-import boto3
-from awsglue.context import GlueContext
-
-# Set AWS credentials and region
-glueContext = GlueContext(SparkContext.getOrCreate())
-glueContext._jsc.hadoopConfiguration().set("fs.s3a.access.key", "your-access-key")
-glueContext._jsc.hadoopConfiguration().set("fs.s3a.secret.key", "your-secret-key")
-glueContext._jsc.hadoopConfiguration().set("fs.s3a.endpoint", "s3-your-region.amazonaws.com")
-
-# Now you can use GlueContext to work with AWS services
+@echo off
+for /f "delims=" %%A in ('aws glue list-jobs --output text --query "JobNames"') do (
+    set "job_name=%%A"
+    for /f "delims=" %%B in ('aws glue get-job --job-name !job_name! --query "Job.Command.ScriptLocation" --output text') do (
+        set "script_location=%%B"
+        echo Job Name: !job_name!, Script Location: !script_location!
+    )
+)
