@@ -19,3 +19,16 @@ for /f "delims=" %%A in ('aws glue list-jobs --output text --query "JobNames[]"'
     echo %%A
     set /a "count+=1"
 )
+
+
+@echo off
+
+setlocal enabledelayedexpansion
+
+for /f "delims=" %%A in (glue_job_names.txt) do (
+    set "job_name=%%A"
+    for /f "delims=" %%B in ('aws glue get-job --job-name "!job_name!" --query "Job.Command.ScriptLocation" --output text') do (
+        echo Job Name: !job_name!, Script Location: %%B
+    )
+)
+
