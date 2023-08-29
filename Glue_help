@@ -1,0 +1,8 @@
+aws glue list-jobs
+
+aws glue get-job --job-name your-job-name
+
+for job_name in $(aws glue list-jobs --output text --query 'JobNames'); do
+    script_location=$(aws glue get-job --job-name $job_name --query 'Job.Command.ScriptLocation' --output text)
+    echo "Job Name: $job_name, Script Location: $script_location"
+done
