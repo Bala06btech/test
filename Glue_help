@@ -32,3 +32,31 @@ for /f "delims=" %%A in (glue_job_names.txt) do (
     )
 )
 
+
+import boto3
+
+# Initialize Glue client
+glue_client = boto3.client('glue')
+
+# Retrieve all Glue jobs
+all_jobs = []
+next_token = None
+
+while True:
+    if next_token:
+        response = glue_client.get_jobs(NextToken=next_token)
+    else:
+        response = glue_client.get_jobs()
+
+    all_jobs.extend(response['Jobs'])
+    next_token = response.get('NextToken')
+
+    if not next_token:
+        break
+
+# Print job names and script locations
+for job in all_jobs:
+    job_name = job['Name']
+    script_location = job['Command']['ScriptLocation']
+    print(f"Job Name: {job_name}, Script Location: {script_location}")
+
