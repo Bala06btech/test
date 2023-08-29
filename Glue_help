@@ -15,3 +15,11 @@ for /f "delims=" %%A in ('aws glue list-jobs --output text --query "JobNames"') 
         echo Job Name: %%A, Script Location: %%B
     )
 )
+
+@echo off
+
+for /f "delims=" %%A in ('aws glue list-jobs --output text --query "JobNames[]"') do (
+    for /f "delims=" %%B in ('aws glue get-job --job-name "%%A" --query "Job.Command.ScriptLocation" --output text') do (
+        echo Job Name: %%A, Script Location: %%B
+    )
+)
