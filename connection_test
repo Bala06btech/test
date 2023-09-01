@@ -5,8 +5,8 @@ import pytz
 import boto3
 import pandas as pd
  
-json_file_path = 's3://sunlife-sas-migration-quantiphi-bucket/SampleDB_Conn.json'
-csv_output_path = 's3://sunlife-sas-migration-quantiphi-bucket/DB_connection_info.csv'
+json_file_path = 's3://s3/SampleDB_Conn.json'
+csv_output_path = 's3://s3/DB_connection_info.csv'
  
 # Initialize Spark session
 spark = SparkSession.builder.appName("JDBCConnectionTest").getOrCreate()
