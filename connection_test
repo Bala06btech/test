@@ -1,133 +1,81 @@
 from pyspark.sql import SparkSession
+from datetime import datetime
 import json
+import pytz
 import boto3
-
+import pandas as pd
+ 
+json_file_path = 's3://sunlife-sas-migration-quantiphi-bucket/SampleDB_Conn.json'
+csv_output_path = 's3://sunlife-sas-migration-quantiphi-bucket/DB_connection_info.csv'
+ 
 # Initialize Spark session
 spark = SparkSession.builder.appName("JDBCConnectionTest").getOrCreate()
-json_file_path = 's3://path/1.json'
-
+ 
 # Initialize Glue client
 glue_client = boto3.client('glue')
-
-# Load connection configurations from the JSON file
-with open(json_file_path) as json_file:
-    connections_data = json.load(json_file)
-
-# Loop through each database.table object and test JDBC connections using Spark
-for table_key, table_info in connections_data.items():
-    if table_key != "env":
-        try:
-            connection_name = table_info['conn_name']
-            database_name = table_info['database_name']
-            table_name = table_info['dbtable']
-
-            # Get connection details from Glue
-            glue_connection = glue_client.get_connection(Name=connection_name)['Connection']
-
-            # Extract the JDBC URL from the Glue connection
-            jdbc_url = glue_connection['ConnectionProperties']['JDBC_CONNECTION_URL']
-            username = glue_connection['ConnectionProperties']['Username']
-            password = glue_connection['ConnectionProperties']['Password']
-                                                               
-            print(connection_name, database_name, table_name, jdbc_url, username, password)
-
-            # Use spark.read to read data from the JDBC connection
-            try:
-                jdbc_df = spark.read \
-                    .format("jdbc") \
-                    .option("url", jdbc_url) \
-                    .option("dbtable", table_name) \
-                    .option("user", username) \
-                    .option("password", password) \
-                    .load()
-
-                # Process the DataFrame as needed
-                jdbc_df.show()
-            except Exception as e:
-                print(f"An error occurred while reading data from JDBC: {e}")
-        except KeyError as e:
-            print(f"KeyError occurred: {e}")
-        except glue_client.exceptions.EntityNotFoundException as e:
-            print(f"EntityNotFoundException occurred: {e}")
-        except Exception as e:
-            print(f"An error occurred: {e}")
-
-
-
-
-from pyspark.sql import SparkSession
-import json
-import boto3
-
-# Initialize Spark session
-spark = SparkSession.builder.appName("JDBCConnectionTest").getOrCreate()
-json_file_path = 's3://path/1.json'
-
-# Initialize Glue client
-glue_client = boto3.client('glue')
-
-# Load connection configurations from the JSON file
-with open(json_file_path) as json_file:
-    connections_data = json.load(json_file)
-
+connections_data = pd.read_json(json_file_path)
+ 
 # List to store connection information
 connection_info = []
-
+ 
 # Loop through each database.table object and test JDBC connections using Spark
 for table_key, table_info in connections_data.items():
-    if table_key != "env":
-        try:
-            connection_name = table_info['conn_name']
-            database_name = table_info['database_name']
-            table_name = table_info['dbtable']
-
-            # Initialize connection status as "failure"
-            connection_status = "failure"
-
-            try:
-                # Get connection details from Glue
-                glue_connection = glue_client.get_connection(Name=connection_name)['Connection']
-
-                # Extract the JDBC URL from the Glue connection
-                jdbc_url = glue_connection['ConnectionProperties']['JDBC_CONNECTION_URL']
-                username = glue_connection['ConnectionProperties']['Username']
-                password = glue_connection['ConnectionProperties']['Password']
-
-                # Attempt to establish the connection
-                try:
-                    jdbc_df = spark.read \
-                        .format("jdbc") \
-                        .option("url", jdbc_url) \
-                        .option("dbtable", table_name) \
-                        .option("user", username) \
-                        .option("password", password) \
-                        .load()
-
-                    # Update connection status to "success"
-                    connection_status = "success"
-
-                    # Check if jdbc_df has data
-                    has_data = not jdbc_df.isEmpty()
-
-                    # Append connection information to the list
-                    connection_info.append((connection_name, connection_status, table_key, has_table, has_data))
-                except Exception as e:
-                    # Append connection information to the list indicating an error
-                    connection_info.append((connection_name, connection_status, table_key, "No", "No"))
-
-            except Exception as e:
-                # Append connection information to the list indicating a connection issue
-                connection_info.append((connection_name, "N/A", table_key, "N/A", "N/A"))
-        except KeyError as e:
-            # Append connection information to the list indicating a KeyError
-            connection_info.append((connection_name, "N/A", table_key, "N/A", "N/A"))
-
+    if table_key != "env":
+        try:
+            connection_name = table_info['conn_name']
+            database_name = table_info['databaseName']
+            table_name = table_info['dbtable']
+            try:
+                glue_connection = glue_client.get_connection(Name=connection_name)['Connection']
+                # Extract the JDBC URL from the Glue connection
+                jdbc_url = glue_connection['ConnectionProperties']['JDBC_CONNECTION_URL']
+                username = glue_connection['ConnectionProperties']['USERNAME']
+                password = glue_connection['ConnectionProperties']['PASSWORD']
+ 
+                # Attempt to establish the connection
+                try:
+                    jdbc_df = spark.read \
+                        .format("jdbc") \
+                        .option("url", jdbc_url) \
+                        .option("dbtable", table_name) \
+                        .option("user", username) \
+                        .option("password", password) \
+                        .load()
+                    # Update connection status to "success"
+                    connection_status = "success"
+                    has_table = "Yes"
+                    has_data = "Yes" if not jdbc_df.isEmpty() else "No"
+                    connection_info.append((connection_name, connection_status, table_key, has_table, has_data))
+                    print(connection_name, connection_status, table_key, has_table, has_data)
+                except Exception as e:
+                    # Append connection information to the list indicating an error
+                    connection_status = "failure_in_jdbc"
+                    if "doesn't exist" in str(e):
+                        has_table = 'No'
+                    else:
+                        has_table = 'N/A'
+                   
+                    connection_info.append((connection_name, connection_status, table_key, has_table, "N/A"))
+                    print(connection_name, connection_status, table_key, has_table, "N/A")
+ 
+            except Exception as e:
+                # Append connection information to the list indicating a connection issue
+                connection_info.append((connection_name, "failure_glue_connection", table_key, "N/A", "N/A"))
+                print(connection_name, "failure_glue_connection", table_key, "N/A", "N/A")
+        except KeyError as e:
+            # Append connection information to the list indicating a KeyError
+            connection_info.append((connection_name, "failure_reading_json", table_key, "N/A", "N/A"))
+            print(connection_name, "failure_reading_json", table_key, "N/A", "N/A")
+ 
 # Create a DataFrame from the connection information
 columns = ["Connection", "Connection Status", "Table Key", "Has Table", "Has Data"]
-connection_df = spark.createDataFrame(connection_info, columns)
-
+connection_df = pd.DataFrame(connection_info, columns=columns)
+ 
 # Write the DataFrame to a CSV file
-csv_output_path = 's3://path/connection_info.csv'
-connection_df.coalesce(1).write.option("header", "true").csv(csv_output_path)
-
-print("Connection information written to CSV:", csv_output_path)
+connection_df.to_csv(csv_output_path, index=False)
+ 
+tz_NY = pytz.timezone('America/New_York')
+datetime_NY = datetime.now(tz_NY)
+ 
+print("Connection information written to CSV : ", csv_output_path )
+print('Output file generated on : ', datetime_NY.strftime("%Y-%m-%d %H:%M:%S"))
