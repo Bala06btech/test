@@ -60,3 +60,18 @@ for job in all_jobs:
     script_location = job['Command']['ScriptLocation']
     print(f"Job Name: {job_name}, Script Location: {script_location}")
 
+
+
+
+response = s3.list_objects_v2(Bucket=bucket_name, Prefix=prefix)
+
+# Iterate through the objects
+for obj in response.get('Contents', []):
+    # Check if the object is a .py file
+    if obj['Key'].endswith('.py'):
+        # Download the .py file
+        file_contents = s3.get_object(Bucket=bucket_name, Key=obj['Key'])['Body'].read().decode('utf-8')
+        
+        # Check if the file contains the desired line
+        if 'xlsx' in file_contents:
+            print(f"File {obj['Key']} contains 'xlsx'")
