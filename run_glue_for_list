@@ -1,0 +1,28 @@
+import boto3
+import csv
+
+# Initialize the Glue client
+glue = boto3.client('glue')
+
+# Specify the name of your Glue job
+job_name = 'your-glue-job-name'
+
+# Open and read the CSV file
+with open('job_parameters.csv', 'r') as csv_file:
+    csv_reader = csv.DictReader(csv_file)
+    
+    for row in csv_reader:
+        input_path = row['input_path']
+        output_path = row['output_path']
+        
+        # Create a dictionary of job parameters
+        job_parameters = {
+            'input_path': input_path,
+            'output_path': output_path
+        }
+        
+        # Run the Glue job with the specified parameters
+        response = glue.start_job_run(JobName=job_name, Arguments=job_parameters)
+        
+        # Print the job run ID for reference
+        print(f"Started job run with input_path: {input_path}, output_path: {output_path}, JobRunId: {response['JobRunId']}")
