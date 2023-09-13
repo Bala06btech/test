@@ -79,3 +79,89 @@ datetime_NY = datetime.now(tz_NY)
  
 print("Connection information written to CSV : ", csv_output_path )
 print('Output file generated on : ', datetime_NY.strftime("%Y-%m-%d %H:%M:%S"))
+
+
+###########################################################################################################
+
+
+from pyspark.sql import SparkSession
+from datetime import datetime
+import json
+import pytz
+import boto3
+import pandas as pd
+from awsglue.utils import getResolvedOptions
+import sys
+import logging
+
+def establish_spark_session(app_name):
+    return SparkSession.builder.appName(app_name).getOrCreate()
+
+def get_connection_info(glue_client, table_info):
+    try:
+        connection_name = table_info['conn_name']
+        database_name = table_info['databaseName']
+        table_name = table_info['dbtable']
+
+        # Check if the connection exists in AWS Glue
+        glue_connection = glue_client.get_connection(Name=connection_name)['Connection']
+
+        jdbc_url = glue_connection['ConnectionProperties']['JDBC_CONNECTION_URL']
+        username = glue_connection['ConnectionProperties']['USERNAME']
+        password = glue_connection['ConnectionProperties']['PASSWORD']
+
+        try:
+            jdbc_df = spark.read \
+                .format("jdbc") \
+                .option("url", jdbc_url) \
+                .option("dbtable", table_name) \
+                .option("user", username) \
+                .option("password", password) \
+                .load()
+
+            connection_status = "success"
+            has_table = "Yes"
+            has_data = "Yes" if not jdbc_df.isEmpty() else "No"
+        except Exception as e:
+            connection_status = "failure_in_jdbc"
+            has_table = 'No' if "doesn't exist" in str(e) else 'N/A'
+    except Exception as e:
+        connection_status = "failure_glue_connection"
+        has_table = "N/A"
+        # Handle the case where the Glue connection is not found
+        if "not found" in str(e):
+            connection_status = "Connection_name not found in Glue connection"
+
+    return connection_name, connection_status, table_key, has_table, "N/A"
+
+def main():
+    args = getResolvedOptions(sys.argv, ['JOB_NAME', 's3_bucket', 'input_json_file', 'output_csv_file'])
+    s3_bucket = args['s3_bucket']
+    input_json = args['input_json_file']
+    csv_output = args['output_csv_file']
+    input_json_file = f's3://{s3_bucket}/{input_json}'
+    csv_output_path = f's3://{s3_bucket}/{csv_output}'
+
+    spark = establish_spark_session("JDBCConnectionTest")
+    glue_client = boto3.client('glue')
+
+    connections_data = pd.read_json(input_json_file)
+    connection_info = []
+
+    for table_key, table_info in connections_data.items():
+        if table_key != "env":
+            connection_info.append(get_connection_info(glue_client, table_info))
+
+    columns = ["Connection", "Connection Status", "Table Key", "Has Table", "Has Data"]
+    connection_df = pd.DataFrame(connection_info, columns=columns)
+    connection_df.to_csv(csv_output_path, index=False)
+
+    tz_NY = pytz.timezone('America/New_York')
+    datetime_NY = datetime.now(tz_NY)
+
+    logging.basicConfig(filename='connection_log.txt', level=logging.INFO)
+    logging.info("Connection information written to CSV: %s", csv_output_path)
+    logging.info("Output file generated on: %s", datetime_NY.strftime("%Y-%m-%d %H:%M:%S"))
+
+if __name__ == "__main__":
+    main()
