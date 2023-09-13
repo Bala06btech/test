@@ -1,0 +1,75 @@
+import boto3
+import json
+import pyspark.sql.functions as F
+import re
+from awsglue.context import GlueContext
+
+def standardize_cols(df):
+    # Standardize column names
+    df = df.select([F.col(col).alias(re.sub("[^0-9a-zA-Z_]+", "_", col)) for col in df.columns])
+    for i in df.columns:
+        if i[0].isdigit():
+            df = df.withColumnRenamed(i, '_' + i)
+    return df
+
+def read_db_config(s3_bucket, config_path):
+    s3 = boto3.client('s3', region_name='ca-central-1')
+    config_response = s3.get_object(Bucket=s3_bucket, Key=config_path)
+    config_file = json.loads(config_response['Body'].read())
+    return config_file
+
+def get_db_data(glueContext, s3_bucket, db_tbl_key, config_path):
+    config_file = read_db_config(s3_bucket, config_path)
+    
+    try:
+        connection_name = config_file[db_tbl_key]['conn_name']
+        dest_path = "s3://" + s3_bucket + "/" + config_file[db_tbl_key]["dest_path"]
+        db_name = config_file[db_tbl_key]["databaseName"]
+        load_type = config_file[db_tbl_key]["LoadType"]
+        tbl_name = config_file[db_tbl_key]["dbtable"]
+
+        if load_type.lower() == 'dynamicframe':
+            dynamic_frame = glueContext.create_dynamic_frame.from_catalog(
+                database=db_name,
+                table_name=tbl_name,
+                transformation_ctx="dynamic_frame"
+            )
+
+            # Convert dynamic frame to DataFrame
+            df = dynamic_frame.toDF()
+        elif load_type.lower() == 'sparkread':
+            jdbc_url = glueContext.extract_jdbc_conf(connection_name)["connectionUrl"]
+            df = glueContext.read.format("jdbc") \
+                .option("url", jdbc_url) \
+                .option("databaseName", db_name) \
+                .option("dbtable", tbl_name) \
+                .option("user", connection_name["USERNAME"]) \
+                .option("password", connection_name["PASSWORD"]) \
+                .load()
+        elif load_type.lower() == 'gluecatalog':
+            dynamic_frame = glueContext.create_dynamic_frame.from_catalog(
+                database=db_name,
+                table_name=tbl_name,
+                transformation_ctx="dynamic_frame"
+            )
+
+            # Convert dynamic frame to DataFrame
+            df = dynamic_frame.toDF()
+        else:
+            raise ValueError("Unsupported LoadType: " + load_type)
+
+        df = standardize_cols(df)
+        df.write.mode('overwrite').parquet(dest_path)
+    except Exception as e:
+        print(e)
+        sys.exit("Error connecting to database: " + db_name)
+
+def load_db_data(s3_bucket, config_path, spark):
+    glueContext = GlueContext(spark)
+    s3 = boto3.client('s3', region_name='ca-central-1')
+    config_response = s3.get_object(Bucket=s3_bucket, Key=config_path)
+    config_file = json.loads(config_response['Body'].read())
+    
+    for key in config_file.keys():
+        if key != 'env':
+            get_db_data(glueContext, s3_bucket, key, config_path)
