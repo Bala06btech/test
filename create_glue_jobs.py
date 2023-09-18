@@ -2,6 +2,8 @@ import csv
 import boto3
 import json
 
+import csv
+
 def read_job_data_from_csv(csv_file_path):
     job_data = []
     try:
@@ -14,19 +16,28 @@ def read_job_data_from_csv(csv_file_path):
                 temp_dir = row.get('temp_dir', '')  # Optional
                 python_lib_path = row.get('python_lib_path', '').split(',')  # Split into a list
                 dependent_jar_path = row.get('dependent_jar_path', '').split(',')  # Split into a list
-                
+
+                # Extract custom job parameters
+                custom_parameters = {}
+                for key_value_pair in row.keys():
+                    if ':' in key_value_pair:
+                        param_key, param_value = key_value_pair.split(':')
+                        custom_parameters[param_key] = param_value
+
                 job_info = {
                     'job_name': job_name,
                     'script_location': script_location,
                     'spark_ui_logs_path': spark_ui_logs_path,
                     'temp_dir': temp_dir,
                     'python_lib_path': python_lib_path,
-                    'dependent_jar_path': dependent_jar_path
+                    'dependent_jar_path': dependent_jar_path,
+                    'custom_parameters': custom_parameters  # Add custom parameters to job info
                 }
                 job_data.append(job_info)
     except Exception as e:
         print("Error reading CSV:", str(e))
     return job_data
+
 
 def create_glue_jobs(job_data):
     try:
