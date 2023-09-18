@@ -5,24 +5,25 @@ import json
 def read_job_data_from_csv(csv_file_path):
     job_data = []
     try:
-        with open(csv_file_path, 'r') as csv_file:
-            csv_reader = csv.DictReader(csv_file)
+        with open(csv_file_path, 'r', newline='') as csv_file:
+            csv_reader = csv.DictReader(csv_file, delimiter=';')
             for row in csv_reader:
                 job_name = row['job_name']
                 script_location = row['script_location']
                 spark_ui_logs_path = row.get('spark_ui_logs_path', '')  # Optional
                 temp_dir = row.get('temp_dir', '')  # Optional
-                python_lib_path = row.get('python_lib_path', '')  # Optional
-                dependent_jar_path = row.get('dependent_jar_path', '')  # Optional
+                python_lib_path = row.get('python_lib_path', '').split(',')  # Split into a list
+                dependent_jar_path = row.get('dependent_jar_path', '').split(',')  # Split into a list
                 
-                job_data.append({
+                job_info = {
                     'job_name': job_name,
                     'script_location': script_location,
                     'spark_ui_logs_path': spark_ui_logs_path,
                     'temp_dir': temp_dir,
                     'python_lib_path': python_lib_path,
                     'dependent_jar_path': dependent_jar_path
-                })
+                }
+                job_data.append(job_info)
     except Exception as e:
         print("Error reading CSV:", str(e))
     return job_data
