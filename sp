@@ -165,4 +165,49 @@
       "Choices": [
         {
           "Variable": "$.RunGlueJob4.Status",
-          "StringEquals": "SUCCEEDED
+          "StringEquals": "SUCCEEDED",
+          "Next": "CheckJob5Status"
+        },
+        {
+          "Variable": "$.RunGlueJob4.Status",
+          "StringEquals": "FAILED",
+          "Next": "ParallelFailed" // If job 4 failed, go to the failure path
+        },
+        {
+          "Variable": "$.RunGlueJob4.Status",
+          "StringEquals": "SUCCEEDED",
+          "Next": "MainJob"
+        }
+      ],
+      "Default": "ParallelFailed"
+    },
+    "CheckJob5Status": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.RunGlueJob5.Status",
+          "StringEquals": "SUCCEEDED",
+          "Next": "MainJob"
+        },
+        {
+          "Variable": "$.RunGlueJob5.Status",
+          "StringEquals": "FAILED",
+          "Next": "ParallelFailed" // If job 5 failed, go to the failure path
+        }
+      ],
+      "Default": "ParallelFailed"
+    },
+    "MainJob": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::glue:startJobRun.sync",
+      "Parameters": {
+        "JobName": "YourMainGlueJobName",
+        "Arguments": {
+          "--input_json": "s3://your-bucket/main-input.json" // Provide the input for the main Glue job
+        }
+      },
+      "End": true,
+      "Catch": [
+        {
+          "ErrorEquals": ["States.ALL"],
+          "Next": "ErrorHandlingMain" // Transition to error handling state for
