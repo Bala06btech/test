@@ -85,23 +85,21 @@
           }
         }
       ],
-      "Next": "RunFinalGlueJob" // Transition to the next state after all branches are complete
-    },
-    "RunFinalGlueJob": {
-      "Type": "Task",
-      "Resource": "arn:aws:states:::glue:startJobRun.sync",
-      "Parameters": {
-        "JobName": "YourFinalGlueJobName",
-        "Arguments": {
-          "--input_json": "s3://your-bucket/final-input.json" // Provide the input for the final Glue job
+      "End": true,
+      "Catch": [
+        {
+          "ErrorEquals": ["States.ALL"],
+          "Next": "ErrorHandling" // Transition to error handling state for any error
         }
-      },
-      "End": true
+      ]
     },
     "ErrorHandling": {
       "Type": "Fail",
       "Cause": "One or more Glue jobs failed",
       "Error": "GlueJobFailure"
+    },
+    "TerminalState": {
+      "Type": "Succeed" // This state marks the successful completion of the state machine
     }
   }
 }
