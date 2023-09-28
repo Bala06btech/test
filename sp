@@ -89,7 +89,25 @@
       "Catch": [
         {
           "ErrorEquals": ["States.ALL"],
-          "Next": "ErrorHandling" // Transition to error handling state for any error
+          "Next": "ErrorHandling" // Transition to error handling state for any error in parallel Glue jobs
+        }
+      ],
+      "Next": "RunFinalGlueJob" // Transition to the final Glue job after all parallel branches are complete
+    },
+    "RunFinalGlueJob": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::glue:startJobRun.sync",
+      "Parameters": {
+        "JobName": "YourFinalGlueJobName",
+        "Arguments": {
+          "--input_json": "s3://your-bucket/final-input.json" // Provide the input for the final Glue job
+        }
+      },
+      "End": true,
+      "Catch": [
+        {
+          "ErrorEquals": ["States.ALL"],
+          "Next": "ErrorHandling" // Transition to error handling state for any error in the final Glue job
         }
       ]
     },
