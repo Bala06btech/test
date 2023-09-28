@@ -85,8 +85,7 @@
           }
         }
       ],
-      "End": true,
-      "Next": "RunFinalGlueJob" // Move to the next Glue job after parallel executions
+      "Next": "RunFinalGlueJob" // Transition to the next state after all branches are complete
     },
     "RunFinalGlueJob": {
       "Type": "Task",
@@ -98,6 +97,11 @@
         }
       },
       "End": true
+    },
+    "ErrorHandling": {
+      "Type": "Fail",
+      "Cause": "One or more Glue jobs failed",
+      "Error": "GlueJobFailure"
     }
   }
 }
