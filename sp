@@ -48,7 +48,7 @@
           "Next": "CheckJobStatus2"
         }
       ],
-      "Default": "ParallelFailed"
+      "Default": "WaitForCompletion"
     },
     "CheckJobStatus2": {
       "Type": "Choice",
@@ -57,6 +57,28 @@
           "Variable": "$.RunGlueJob2.Status",
           "StringEquals": "SUCCEEDED",
           "Next": "ParallelExecutionSucceeded"
+        }
+      ],
+      "Default": "WaitForCompletion"
+    },
+    "WaitForCompletion": {
+      "Type": "Wait",
+      "Seconds": 300,
+      "SecondsPath": "$.WaitTime",
+      "Next": "CheckTotalWaitTime"
+    },
+    "CheckTotalWaitTime": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.WaitTime",
+          "NumericEquals": 720,
+          "Next": "ParallelFailed"
+        },
+        {
+          "Variable": "$.WaitTime",
+          "NumericLessThan": 720,
+          "Next": "WaitForCompletion"
         }
       ],
       "Default": "ParallelFailed"
@@ -71,7 +93,7 @@
       "End": true
     },
     "TerminalState": {
-      "Type": "Succeed" // This state marks the successful completion of the state machine
+      "Type": "Succeed"
     }
   }
 }
