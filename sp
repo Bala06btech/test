@@ -85,39 +85,84 @@
           }
         }
       ],
-      "End": true,
-      "Catch": [
+      "End": true
+    },
+    "CheckJobStatus": {
+      "Type": "Choice",
+      "Choices": [
         {
-          "ErrorEquals": ["States.ALL"],
-          "Next": "ErrorHandling" // Transition to error handling state for any error in parallel Glue jobs
+          "Variable": "$.RunGlueJob1.Status",
+          "StringEquals": "SUCCEEDED",
+          "Next": "CheckJob2Status"
+        },
+        {
+          "Variable": "$.RunGlueJob2.Status",
+          "StringEquals": "SUCCEEDED",
+          "Next": "CheckJob3Status"
+        },
+        {
+          "Variable": "$.RunGlueJob3.Status",
+          "StringEquals": "SUCCEEDED",
+          "Next": "CheckJob4Status"
+        },
+        {
+          "Variable": "$.RunGlueJob4.Status",
+          "StringEquals": "SUCCEEDED",
+          "Next": "CheckJob5Status"
+        },
+        {
+          "Variable": "$.RunGlueJob5.Status",
+          "StringEquals": "SUCCEEDED",
+          "Next": "MainJob"
         }
       ],
-      "Next": "RunFinalGlueJob" // Transition to the final Glue job after all parallel branches are complete
+      "Default": "ParallelFailed" // If none of the jobs succeeded, go to the failure path
     },
-    "RunFinalGlueJob": {
-      "Type": "Task",
-      "Resource": "arn:aws:states:::glue:startJobRun.sync",
-      "Parameters": {
-        "JobName": "YourFinalGlueJobName",
-        "Arguments": {
-          "--input_json": "s3://your-bucket/final-input.json" // Provide the input for the final Glue job
-        }
-      },
-      "End": true,
-      "Catch": [
+    "CheckJob2Status": {
+      "Type": "Choice",
+      "Choices": [
         {
-          "ErrorEquals": ["States.ALL"],
-          "Next": "ErrorHandling" // Transition to error handling state for any error in the final Glue job
+          "Variable": "$.RunGlueJob2.Status",
+          "StringEquals": "SUCCEEDED",
+          "Next": "CheckJob3Status"
+        },
+        {
+          "Variable": "$.RunGlueJob2.Status",
+          "StringEquals": "FAILED",
+          "Next": "ParallelFailed" // If job 2 failed, go to the failure path
+        },
+        {
+          "Variable": "$.RunGlueJob2.Status",
+          "StringEquals": "SUCCEEDED",
+          "Next": "MainJob"
         }
-      ]
+      ],
+      "Default": "ParallelFailed"
     },
-    "ErrorHandling": {
-      "Type": "Fail",
-      "Cause": "One or more Glue jobs failed",
-      "Error": "GlueJobFailure"
+    "CheckJob3Status": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.RunGlueJob3.Status",
+          "StringEquals": "SUCCEEDED",
+          "Next": "CheckJob4Status"
+        },
+        {
+          "Variable": "$.RunGlueJob3.Status",
+          "StringEquals": "FAILED",
+          "Next": "ParallelFailed" // If job 3 failed, go to the failure path
+        },
+        {
+          "Variable": "$.RunGlueJob3.Status",
+          "StringEquals": "SUCCEEDED",
+          "Next": "MainJob"
+        }
+      ],
+      "Default": "ParallelFailed"
     },
-    "TerminalState": {
-      "Type": "Succeed" // This state marks the successful completion of the state machine
-    }
-  }
-}
+    "CheckJob4Status": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.RunGlueJob4.Status",
+          "StringEquals": "SUCCEEDED
