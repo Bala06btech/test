@@ -210,4 +210,27 @@
       "Catch": [
         {
           "ErrorEquals": ["States.ALL"],
-          "Next": "ErrorHandlingMain" // Transition to error handling state for
+          "Next": "ErrorHandlingMain" // Transition to error handling state for any error in the main Glue job
+        }
+      ]
+    },
+    "ErrorHandlingMain": {
+      "Type": "Fail",
+      "Cause": "Main Glue job failed",
+      "Error": "MainGlueJobFailure"
+    },
+    "ParallelFailed": {
+      "Type": "Fail",
+      "Cause": "One or more parallel Glue jobs failed",
+      "Error": "ParallelGlueJobFailure"
+    },
+    "ErrorHandling": {
+      "Type": "Fail",
+      "Cause": "One or more Glue jobs failed",
+      "Error": "GlueJobFailure"
+    },
+    "TerminalState": {
+      "Type": "Succeed" // This state marks the successful completion of the state machine
+    }
+  }
+}
