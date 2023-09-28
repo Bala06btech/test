@@ -45,19 +45,30 @@
         {
           "Variable": "$.RunGlueJob1.Status",
           "StringEquals": "SUCCEEDED",
+          "Next": "CheckJobStatus2"
+        }
+      ],
+      "Default": "ParallelFailed"
+    },
+    "CheckJobStatus2": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.RunGlueJob2.Status",
+          "StringEquals": "SUCCEEDED",
           "Next": "ParallelExecutionSucceeded"
         }
       ],
       "Default": "ParallelFailed"
     },
-    "ParallelExecutionSucceeded": {
-      "Type": "Succeed",
-      "End": true
-    },
     "ParallelFailed": {
       "Type": "Fail",
       "Cause": "One or more parallel Glue jobs failed",
       "Error": "ParallelGlueJobFailure"
+    },
+    "ParallelExecutionSucceeded": {
+      "Type": "Succeed",
+      "End": true
     },
     "TerminalState": {
       "Type": "Succeed" // This state marks the successful completion of the state machine
