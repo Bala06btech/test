@@ -39,37 +39,20 @@
       ],
       "End": true
     },
-    "CheckGlueJob1Status": {
+    "CheckJobStatus1": {
       "Type": "Choice",
       "Choices": [
         {
           "Variable": "$.RunGlueJob1.Status",
           "StringEquals": "SUCCEEDED",
-          "Next": "MainJob"
-        },
-        {
-          "Variable": "$.RunGlueJob1.Status",
-          "StringEquals": "FAILED",
-          "Next": "GlueJob1Failed"
+          "Next": "ParallelExecutionSucceeded"
         }
       ],
       "Default": "ParallelFailed"
     },
-    "MainJob": {
-      "Type": "Task",
-      "Resource": "arn:aws:states:::glue:startJobRun.sync",
-      "Parameters": {
-        "JobName": "YourMainGlueJobName",
-        "Arguments": {
-          "--input_json": "s3://your-bucket/main-input.json" // Provide the input for the main Glue job
-        }
-      },
+    "ParallelExecutionSucceeded": {
+      "Type": "Succeed",
       "End": true
-    },
-    "GlueJob1Failed": {
-      "Type": "Fail",
-      "Cause": "GlueJob1 failed",
-      "Error": "GlueJob1Failure"
     },
     "ParallelFailed": {
       "Type": "Fail",
