@@ -87,116 +87,6 @@
       ],
       "End": true
     },
-    "CheckParallelStatus": {
-      "Type": "Choice",
-      "Choices": [
-        {
-          "Variable": "$.RunGlueJob1.Status",
-          "StringEquals": "SUCCEEDED",
-          "Next": "CheckJob2Status"
-        },
-        {
-          "Variable": "$.RunGlueJob2.Status",
-          "StringEquals": "SUCCEEDED",
-          "Next": "CheckJob3Status"
-        },
-        {
-          "Variable": "$.RunGlueJob3.Status",
-          "StringEquals": "SUCCEEDED",
-          "Next": "CheckJob4Status"
-        },
-        {
-          "Variable": "$.RunGlueJob4.Status",
-          "StringEquals": "SUCCEEDED",
-          "Next": "CheckJob5Status"
-        },
-        {
-          "Variable": "$.RunGlueJob5.Status",
-          "StringEquals": "SUCCEEDED",
-          "Next": "MainJob"
-        }
-      ],
-      "Default": "ParallelFailed"
-    },
-    "CheckJob2Status": {
-      "Type": "Choice",
-      "Choices": [
-        {
-          "Variable": "$.RunGlueJob2.Status",
-          "StringEquals": "SUCCEEDED",
-          "Next": "CheckJob3Status"
-        },
-        {
-          "Variable": "$.RunGlueJob2.Status",
-          "StringEquals": "FAILED",
-          "Next": "ParallelFailed"
-        },
-        {
-          "Variable": "$.RunGlueJob2.Status",
-          "StringEquals": "SUCCEEDED",
-          "Next": "MainJob"
-        }
-      ],
-      "Default": "ParallelFailed"
-    },
-    "CheckJob3Status": {
-      "Type": "Choice",
-      "Choices": [
-        {
-          "Variable": "$.RunGlueJob3.Status",
-          "StringEquals": "SUCCEEDED",
-          "Next": "CheckJob4Status"
-        },
-        {
-          "Variable": "$.RunGlueJob3.Status",
-          "StringEquals": "FAILED",
-          "Next": "ParallelFailed"
-        },
-        {
-          "Variable": "$.RunGlueJob3.Status",
-          "StringEquals": "SUCCEEDED",
-          "Next": "MainJob"
-        }
-      ],
-      "Default": "ParallelFailed"
-    },
-    "CheckJob4Status": {
-      "Type": "Choice",
-      "Choices": [
-        {
-          "Variable": "$.RunGlueJob4.Status",
-          "StringEquals": "SUCCEEDED",
-          "Next": "CheckJob5Status"
-        },
-        {
-          "Variable": "$.RunGlueJob4.Status",
-          "StringEquals": "FAILED",
-          "Next": "ParallelFailed"
-        },
-        {
-          "Variable": "$.RunGlueJob4.Status",
-          "StringEquals": "SUCCEEDED",
-          "Next": "MainJob"
-        }
-      ],
-      "Default": "ParallelFailed"
-    },
-    "CheckJob5Status": {
-      "Type": "Choice",
-      "Choices": [
-        {
-          "Variable": "$.RunGlueJob5.Status",
-          "StringEquals": "SUCCEEDED",
-          "Next": "MainJob"
-        },
-        {
-          "Variable": "$.RunGlueJob5.Status",
-          "StringEquals": "FAILED",
-          "Next": "ParallelFailed"
-        }
-      ],
-      "Default": "ParallelFailed"
-    },
     "MainJob": {
       "Type": "Task",
       "Resource": "arn:aws:states:::glue:startJobRun.sync",
@@ -207,11 +97,6 @@
         }
       },
       "End": true
-    },
-    "ParallelFailed": {
-      "Type": "Fail",
-      "Cause": "One or more parallel Glue jobs failed",
-      "Error": "ParallelGlueJobFailure"
     },
     "TerminalState": {
       "Type": "Succeed" // This state marks the successful completion of the state machine
