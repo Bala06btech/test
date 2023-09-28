@@ -35,57 +35,25 @@
               "End": true
             }
           }
-        },
-        {
-          "StartAt": "RunGlueJob3",
-          "States": {
-            "RunGlueJob3": {
-              "Type": "Task",
-              "Resource": "arn:aws:states:::glue:startJobRun.sync",
-              "Parameters": {
-                "JobName": "YourGlueJobName",
-                "Arguments": {
-                  "--input_json": "s3://your-bucket/json-file-3.json"
-                }
-              },
-              "End": true
-            }
-          }
-        },
-        {
-          "StartAt": "RunGlueJob4",
-          "States": {
-            "RunGlueJob4": {
-              "Type": "Task",
-              "Resource": "arn:aws:states:::glue:startJobRun.sync",
-              "Parameters": {
-                "JobName": "YourGlueJobName",
-                "Arguments": {
-                  "--input_json": "s3://your-bucket/json-file-4.json"
-                }
-              },
-              "End": true
-            }
-          }
-        },
-        {
-          "StartAt": "RunGlueJob5",
-          "States": {
-            "RunGlueJob5": {
-              "Type": "Task",
-              "Resource": "arn:aws:states:::glue:startJobRun.sync",
-              "Parameters": {
-                "JobName": "YourGlueJobName",
-                "Arguments": {
-                  "--input_json": "s3://your-bucket/json-file-5.json"
-                }
-              },
-              "End": true
-            }
-          }
         }
       ],
       "End": true
+    },
+    "CheckGlueJob1Status": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.RunGlueJob1.Status",
+          "StringEquals": "SUCCEEDED",
+          "Next": "MainJob"
+        },
+        {
+          "Variable": "$.RunGlueJob1.Status",
+          "StringEquals": "FAILED",
+          "Next": "GlueJob1Failed"
+        }
+      ],
+      "Default": "ParallelFailed"
     },
     "MainJob": {
       "Type": "Task",
@@ -97,6 +65,16 @@
         }
       },
       "End": true
+    },
+    "GlueJob1Failed": {
+      "Type": "Fail",
+      "Cause": "GlueJob1 failed",
+      "Error": "GlueJob1Failure"
+    },
+    "ParallelFailed": {
+      "Type": "Fail",
+      "Cause": "One or more parallel Glue jobs failed",
+      "Error": "ParallelGlueJobFailure"
     },
     "TerminalState": {
       "Type": "Succeed" // This state marks the successful completion of the state machine
