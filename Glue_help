@@ -1,3 +1,5 @@
+aws s3api list-object-versions --bucket your-bucket-name --prefix your-folder-path/ --output json --query "Versions[?IsDeleteMarker==true && LastModified<= 'desired-time']"
+
 aws glue list-jobs
 
 aws glue get-job --job-name your-job-name
