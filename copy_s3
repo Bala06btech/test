@@ -1,0 +1,44 @@
+import boto3
+import botocore
+
+# Configure your AWS credentials and region here or use other methods like environment variables, IAM roles, or AWS configuration files
+aws_access_key_id = 'YOUR_ACCESS_KEY'
+aws_secret_access_key = 'YOUR_SECRET_KEY'
+aws_region = 'us-east-1'
+
+source_bucket = 'your-source-bucket'
+source_folder = 'source-folder/'
+destination_bucket = 'your-destination-bucket'
+destination_folder = 'destination-folder/'
+
+# Initialize an S3 client
+s3 = boto3.client('s3', aws_access_key_id=aws_access_key_id, aws_secret_access_key=aws_secret_access_key, region_name=aws_region)
+
+def list_objects(bucket, prefix):
+    objects = []
+    try:
+        response = s3.list_objects_v2(Bucket=bucket, Prefix=prefix)
+        for obj in response.get('Contents', []):
+            objects.append(obj['Key'])
+    except botocore.exceptions.ClientError as e:
+        print(f"Error listing objects in {bucket}/{prefix}: {e}")
+    return objects
+
+def create_folder(bucket, folder):
+    try:
+        s3.put_object(Bucket=bucket, Key=f'{folder}')
+    except botocore.exceptions.ClientError as e:
+        print(f"Error creating folder {folder}: {e}")
+
+objects = list_objects(source_bucket, source_folder)
+for obj in objects:
+    source_key = obj
+    destination_key = obj.replace(source_folder, destination_folder)
+    try:
+        s3.copy_object(
+            CopySource={'Bucket': source_bucket, 'Key': source_key},
+            Bucket=destination_bucket,
+            Key=destination_key
+        )
+    except botocore.exceptions.ClientError as e:
+        print(f"Error copying {source_key} to {destination_key}: {e}")
