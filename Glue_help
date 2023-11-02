@@ -1,36 +1,26 @@
 import boto3
 
-def run_logs_insights_query(log_group_name, query_string):
+def get_logs_between_times(log_group_name, start_time, end_time):
     client = boto3.client('logs')
 
-    response = client.start_query(
+    response = client.get_log_events(
         logGroupName=log_group_name,
-        startTime=int((datetime.now() - timedelta(hours=1)).timestamp()),
-        endTime=int(datetime.now().timestamp()),
-        queryString=query_string
+        startTime=start_time,
+        endTime=end_time,
+        limit=10  # Adjust the limit as needed
     )
 
-    query_id = response['queryId']
+    return response['events']
 
-    query_results = client.get_query_results(queryId=query_id)
-
-    return query_results
-
-# Example query
+# Example time range: '1900-01-01' to '2099-01-01'
 log_group_name = '/aws-glue/jobs/output'
-query_string = 'fields @timestamp, @message | filter @logStream = \'your_log_stream_name\' | filter @logStreamId = \'your_log_stream_id\' | filter @log = \'your_log_id\''
+start_time = 0  # '1900-01-01' in milliseconds since epoch
+end_time = 4102406399000  # '2099-01-01' in milliseconds since epoch
 
-result = run_logs_insights_query(log_group_name, query_string)
-print(result)
+log_events = get_logs_between_times(log_group_name, start_time, end_time)
 
-
-# Example query
-log_group_name = '/aws-glue/jobs/output'
-query_string = 'fields @timestamp, @message | filter @logStream = \'your_log_stream_name\' | filter @logStreamId = \'your_log_stream_id\' | filter @log = \'your_log_id\''
-
-result = run_logs_insights_query(log_group_name, query_string)
-print(result)
-
+for event in log_events:
+    print(event['message'])
 
 
 
