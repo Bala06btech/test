@@ -24,6 +24,14 @@ result = run_logs_insights_query(log_group_name, query_string)
 print(result)
 
 
+# Example query
+log_group_name = '/aws-glue/jobs/output'
+query_string = 'fields @timestamp, @message | filter @logStream = \'your_log_stream_name\' | filter @logStreamId = \'your_log_stream_id\' | filter @log = \'your_log_id\''
+
+result = run_logs_insights_query(log_group_name, query_string)
+print(result)
+
+
 
 
 aws s3api list-object-versions --bucket your-bucket-name --prefix your-folder-path/ --output json --query "Versions[?IsDeleteMarker==true && LastModified<= 'desired-time']"
