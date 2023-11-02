@@ -1,3 +1,31 @@
+import boto3
+
+def run_logs_insights_query(log_group_name, query_string):
+    client = boto3.client('logs')
+
+    response = client.start_query(
+        logGroupName=log_group_name,
+        startTime=int((datetime.now() - timedelta(hours=1)).timestamp()),
+        endTime=int(datetime.now().timestamp()),
+        queryString=query_string
+    )
+
+    query_id = response['queryId']
+
+    query_results = client.get_query_results(queryId=query_id)
+
+    return query_results
+
+# Example query
+log_group_name = '/aws-glue/jobs/output'
+query_string = 'fields @timestamp, @message | filter @logStream = \'your_log_stream_name\' | filter @logStreamId = \'your_log_stream_id\' | filter @log = \'your_log_id\''
+
+result = run_logs_insights_query(log_group_name, query_string)
+print(result)
+
+
+
+
 aws s3api list-object-versions --bucket your-bucket-name --prefix your-folder-path/ --output json --query "Versions[?IsDeleteMarker==true && LastModified<= 'desired-time']"
 
 aws glue list-jobs
