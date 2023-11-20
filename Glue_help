@@ -1,3 +1,5 @@
+df = df.withColumn("timestamp", from_unixtime(unix_timestamp(col("timestamp_str"), "ddMMMyyyy:HH:mm:ss.SSS")))
+
 import boto3
 
 def get_logs_between_times(log_group_name, start_time, end_time):
