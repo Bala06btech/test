@@ -1,3 +1,6 @@
+WHERE DATE(SUBSTR(your_column, 1, 4) || '-' || SUBSTR(your_column, 5, 2) || '-' || SUBSTR(your_column, 7, 2)) > DATE('1960-01-01');
+
+
 from pyspark.sql.functions import lit
 
 def fill_null_if_column_not_exists(df, column_name):
