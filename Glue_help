@@ -1,3 +1,10 @@
+result_df = spark.sql("""
+    SELECT original_date,
+           to_date(original_date, 'dd/MM/yyyy') AS parsed_date,
+           date_format(to_date(original_date, 'dd/MM/yyyy'), 'yyyy-MM-dd') AS formatted_date
+    FROM date_table
+""")
+
 WHERE DATE(SUBSTR(your_column, 1, 4) || '-' || SUBSTR(your_column, 5, 2) || '-' || SUBSTR(your_column, 7, 2)) > DATE('1960-01-01');
 
 
