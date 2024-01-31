@@ -1,3 +1,15 @@
+// Convert the filter date to both date formats
+val formattedFilterDate1 = spark.sql(s"SELECT TO_DATE('$filterDate', 'ddMMMyyyy') as filter_date").first().getAs[Date]("filter_date")
+val formattedFilterDate2 = spark.sql(s"SELECT TO_DATE('$filterDate', 'yyyy-MM-dd') as filter_date").first().getAs[Date]("filter_date")
+
+// Apply the dynamic transformation using when and otherwise
+val transformedDF = df.withColumn("transformed_date_column",
+  when(date_format(col("date_column"), "yyyyMMdd") === date_format(lit(formattedFilterDate1), "yyyyMMdd"), to_date(lit(filterDate), "yyyyMMdd"))
+    .otherwise(when(date_format(col("date_column"), "yyyy-MM-dd") === date_format(lit(formattedFilterDate2), "yyyy-MM-dd"), col("date_column"))
+    .otherwise(lit(null)))
+)
+
+
 result_df = spark.sql("""
     SELECT original_date,
            to_date(original_date, 'dd/MM/yyyy') AS parsed_date,
