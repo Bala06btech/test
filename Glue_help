@@ -1,3 +1,37 @@
+import boto3
+
+# Initialize a boto3 S3 client
+s3_client = boto3.client('s3')
+
+# Define the source and destination details
+source_bucket_name = 'your-source-bucket-name'
+source_key_prefix = 'your-source-folder/'  # Adjust if the file is in a folder
+destination_bucket_name = 'your-destination-bucket-name'
+destination_key = 'your-destination-folder/abc.csv'  # New file name and path
+
+# Find the file starting with "part-0000" in the source folder
+response = s3_client.list_objects_v2(Bucket=source_bucket_name, Prefix=source_key_prefix)
+
+for obj in response.get('Contents', []):
+    file_name = obj['Key']
+    if file_name.startswith(source_key_prefix + "part-0000"):
+        # Copy the file to the new location with the new name
+        copy_source = {
+            'Bucket': source_bucket_name,
+            'Key': file_name
+        }
+        s3_client.copy_object(Bucket=destination_bucket_name, CopySource=copy_source, Key=destination_key)
+        
+        # Delete the original file
+        s3_client.delete_object(Bucket=source_bucket_name, Key=file_name)
+        
+        print(f"File {file_name} has been moved and renamed to {destination_key}")
+        break  # Assuming only one file matches the pattern, exit the loop
+else:
+    print("No file starting with 'part-0000' found.")
+
+
+
 // Convert the filter date to both date formats
 val formattedFilterDate1 = spark.sql(s"SELECT TO_DATE('$filterDate', 'ddMMMyyyy') as filter_date").first().getAs[Date]("filter_date")
 val formattedFilterDate2 = spark.sql(s"SELECT TO_DATE('$filterDate', 'yyyy-MM-dd') as filter_date").first().getAs[Date]("filter_date")
