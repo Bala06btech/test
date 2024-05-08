@@ -1,12 +1,12 @@
 import boto3
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 def delete_old_files(bucket_name, prefix, days=7):
     # Create an S3 client
     s3 = boto3.client('s3')
     
-    # Calculate the cutoff date based on the number of days passed
-    cutoff_date = datetime.utcnow() - timedelta(days=days)
+    # Calculate the cutoff date, make it offset-aware by setting UTC timezone
+    cutoff_date = datetime.utcnow().replace(tzinfo=timezone.utc) - timedelta(days=days)
 
     # Get the list of files in the bucket
     paginator = s3.get_paginator('list_objects_v2')
@@ -17,7 +17,7 @@ def delete_old_files(bucket_name, prefix, days=7):
         if 'Contents' in page:
             for obj in page['Contents']:
                 last_modified = obj['LastModified']
-                # Check if the file is older than the cutoff date
+                # Ensure both datetimes are offset-aware for comparison
                 if last_modified < cutoff_date:
                     # Print file name and last modified date
                     print(f"Deleting {obj['Key']}, last modified: {last_modified}")
