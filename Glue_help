@@ -1,3 +1,28 @@
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import date_format, to_date, lit
+
+# Create a Spark session
+spark = SparkSession.builder.appName("DateExample").getOrCreate()
+
+# Create a DataFrame with the given date
+data = [("2024-01-01",)]
+df = spark.createDataFrame(data, ["date_str"])
+
+# Convert the string date to a date type
+df = df.withColumn("date", to_date(df["date_str"], "yyyy-MM-dd"))
+
+# Format the date to "Apr 2024"
+df = df.withColumn("formatted_date", date_format(df["date"], "MMM yyyy"))
+
+# Collect the result
+result = df.select("formatted_date").collect()
+
+# Get the value as a string
+formatted_date = result[0]["formatted_date"]
+print(formatted_date)
+
+
+
 import boto3
 
 # Initialize a boto3 S3 client
